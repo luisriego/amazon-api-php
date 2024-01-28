@@ -1,13 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Model;
 
 use App\Domain\Common\BaseDomainModel;
+use App\Domain\Repository\IProductRepository;
 use DateTime;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 
+#[ORM\Entity(repositoryClass: IProductRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Product extends BaseDomainModel
 {
     #[ORM\Column(type: 'string', length: 100)]
@@ -22,7 +27,7 @@ class Product extends BaseDomainModel
     #[ORM\Column(type: 'smallint')]
     private ?int $rating = null;
 
-    #[ORM\Column(type: 'string', length: 50)]
+    #[ORM\Column(type: 'string', length: 50, nullable: true)]
     private ?string $seller;
 
     #[ORM\Column(type: 'int')]
@@ -34,9 +39,8 @@ class Product extends BaseDomainModel
     private function __construct(
         string $name,
         string $description,
-        int $price
-    )
-    {
+        int $price,
+    ) {
         $this->setId(Uuid::v4()->toRfc4122());
         $this->name = $name;
         $this->description = $description;
@@ -47,12 +51,12 @@ class Product extends BaseDomainModel
         $this->setUpdatedAt(new DateTime());
     }
 
-    public static function create($name, $description, $price):self
+    public static function create($name, $description, $price): self
     {
         return new static(
             $name,
             $description,
-            $price
+            $price,
         );
     }
 
