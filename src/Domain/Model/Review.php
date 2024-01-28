@@ -21,14 +21,14 @@ class Review extends BaseDomainModel
     #[ORM\Column(type: 'smallint')]
     private int $rating;
 
-//    #[ORM\ManyToOne(targetEntity: Product::class, inversedBy: 'reviews')]
-//    private Product $product;
+    //    #[ORM\ManyToOne(targetEntity: Product::class, inversedBy: 'reviews')]
+    //    private Product $product;
 
     private function __construct(
         string $name,
         string $comment,
-        int $rating)
-    {
+        int $rating,
+    ) {
         $this->setId(Uuid::v4()->toRfc4122());
         $this->name = $name;
         $this->comment = $comment;
@@ -42,7 +42,7 @@ class Review extends BaseDomainModel
         return new static(
             $name,
             $comment,
-            $rating
+            $rating,
         );
     }
 
