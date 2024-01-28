@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace App\Domain\Model;
 
 use App\Domain\Common\BaseDomainModel;
+use App\Domain\Repository\IReviewRepository;
 use DateTime;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 
+#[ORM\Entity(repositoryClass: IReviewRepository::class)]
 class Review extends BaseDomainModel
 {
     #[ORM\Column(type: 'string', length: 50)]
