@@ -6,23 +6,30 @@ namespace App\Domain\Model;
 
 use App\Domain\Common\BaseDomainModel;
 use App\Domain\Repository\ICategoryRepository;
+use App\Domain\Trait\IdentifierTrait;
+use App\Domain\Trait\TimestampableTrait;
+use App\Domain\Trait\WhoTrait;
 use DateTime;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity(repositoryClass: ICategoryRepository::class)]
-class Category extends BaseDomainModel
+class Category
 {
+    use IdentifierTrait;
+    use TimestampableTrait;
+    use WhoTrait;
+
     #[ORM\Column(type: 'string', length: 50)]
     private string $name;
 
     private function __construct(string $name)
     {
-        $this->setId(Uuid::v4()->toRfc4122());
+        $this->id = Uuid::v4()->toRfc4122();
         $this->name = $name;
-        $this->setCreatedAt(new DateTimeImmutable());
-        $this->setUpdatedAt(new DateTime());
+        $this->createdOn = new DateTimeImmutable();
+        $this->updatedOn = new DateTime();
     }
 
     public static function create($name): self

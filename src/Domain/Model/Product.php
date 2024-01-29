@@ -6,6 +6,9 @@ namespace App\Domain\Model;
 
 use App\Domain\Common\BaseDomainModel;
 use App\Domain\Repository\IProductRepository;
+use App\Domain\Trait\IdentifierTrait;
+use App\Domain\Trait\TimestampableTrait;
+use App\Domain\Trait\WhoTrait;
 use DateTime;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
@@ -13,8 +16,12 @@ use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity(repositoryClass: IProductRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-class Product extends BaseDomainModel
+class Product
 {
+    use IdentifierTrait;
+    use TimestampableTrait;
+    use WhoTrait;
+
     #[ORM\Column(type: 'string', length: 100)]
     private string $name;
 
@@ -41,14 +48,14 @@ class Product extends BaseDomainModel
         string $description,
         int $price,
     ) {
-        $this->setId(Uuid::v4()->toRfc4122());
+        $this->id = Uuid::v4()->toRfc4122();
         $this->name = $name;
         $this->description = $description;
         $this->price = $price;
         $this->stock = 0;
         $this->status = ProductStatus::Active;
-        $this->setCreatedAt(new DateTimeImmutable());
-        $this->setUpdatedAt(new DateTime());
+        $this->createdOn = new DateTimeImmutable();
+        $this->updatedOn = new DateTime();
     }
 
     public static function create($name, $description, $price): self

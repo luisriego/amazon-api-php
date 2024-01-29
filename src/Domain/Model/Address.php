@@ -5,9 +5,16 @@ declare(strict_types=1);
 namespace App\Domain\Model;
 
 use App\Domain\Common\BaseDomainModel;
+use App\Domain\Trait\IdentifierTrait;
+use App\Domain\Trait\TimestampableTrait;
+use App\Domain\Trait\WhoTrait;
 
-class Address extends BaseDomainModel
+class Address
 {
+    use IdentifierTrait;
+    use TimestampableTrait;
+    use WhoTrait;
+
     private string $street;
     private string $city;
     private string $department;

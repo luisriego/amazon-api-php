@@ -6,14 +6,21 @@ namespace App\Domain\Model;
 
 use App\Domain\Common\BaseDomainModel;
 use App\Domain\Repository\ICountryRepository;
+use App\Domain\Trait\IdentifierTrait;
+use App\Domain\Trait\TimestampableTrait;
+use App\Domain\Trait\WhoTrait;
 use DateTime;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity(repositoryClass: ICountryRepository::class)]
-class Country extends BaseDomainModel
+class Country
 {
+    use IdentifierTrait;
+    use TimestampableTrait;
+    use WhoTrait;
+
     #[ORM\Column(type: 'string', length: 30)]
     private string $name;
 
@@ -28,12 +35,12 @@ class Country extends BaseDomainModel
         string $iso2,
         string $iso3,
     ) {
-        $this->setId(Uuid::v4()->toRfc4122());
+        $this->id = Uuid::v4()->toRfc4122();
         $this->name = $name;
         $this->iso2 = $iso2;
         $this->iso3 = $iso3;
-        $this->setCreatedAt(new DateTimeImmutable());
-        $this->setUpdatedAt(new DateTime());
+        $this->createdOn = new DateTimeImmutable();
+        $this->updatedOn = new DateTime();
     }
 
     public static function create($name, $iso2, $iso3): self

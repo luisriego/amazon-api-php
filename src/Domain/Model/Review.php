@@ -6,14 +6,21 @@ namespace App\Domain\Model;
 
 use App\Domain\Common\BaseDomainModel;
 use App\Domain\Repository\IReviewRepository;
+use App\Domain\Trait\IdentifierTrait;
+use App\Domain\Trait\TimestampableTrait;
+use App\Domain\Trait\WhoTrait;
 use DateTime;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity(repositoryClass: IReviewRepository::class)]
-class Review extends BaseDomainModel
+class Review
 {
+    use IdentifierTrait;
+    use TimestampableTrait;
+    use WhoTrait;
+
     #[ORM\Column(type: 'string', length: 50)]
     private string $name;
 
@@ -31,12 +38,12 @@ class Review extends BaseDomainModel
         string $comment,
         int $rating,
     ) {
-        $this->setId(Uuid::v4()->toRfc4122());
+        $this->id = Uuid::v4()->toRfc4122();
         $this->name = $name;
         $this->comment = $comment;
         $this->rating = $rating;
-        $this->setCreatedAt(new DateTimeImmutable());
-        $this->setUpdatedAt(new DateTime());
+        $this->createdOn = new DateTimeImmutable();
+        $this->updatedOn =  new DateTime();
     }
 
     public static function create($name, $comment, $rating): self
