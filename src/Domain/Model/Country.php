@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Model;
 
 use App\Domain\Common\BaseDomainModel;
@@ -24,8 +26,8 @@ class Country extends BaseDomainModel
     private function __construct(
         string $name,
         string $iso2,
-        string $iso3)
-    {
+        string $iso3,
+    ) {
         $this->setId(Uuid::v4()->toRfc4122());
         $this->name = $name;
         $this->iso2 = $iso2;
@@ -39,7 +41,7 @@ class Country extends BaseDomainModel
         return new static(
             $name,
             $iso2,
-            $iso3
+            $iso3,
         );
     }
 

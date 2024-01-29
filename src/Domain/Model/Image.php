@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Model;
 
 use App\Domain\Common\BaseDomainModel;
@@ -17,25 +19,24 @@ class Image extends BaseDomainModel
     #[ORM\Column(type: 'string', length: 255)]
     private string $publicCode;
 
-//    #[ORM\ManyToOne(targetEntity: Product::class, inversedBy: 'images')]
-//    private Collection $product;
+    //    #[ORM\ManyToOne(targetEntity: Product::class, inversedBy: 'images')]
+    //    private Collection $product;
 
     private function __construct(
         string $url,
         string $publicCode,
-//        string $product,
-    )
-    {
+        //        string $product,
+    ) {
         $this->url = $url;
         $this->publicCode = $publicCode;
-//        $this->product = new ArrayCollection();
+        //        $this->product = new ArrayCollection();
     }
 
     public static function create($url, $publicCode): self
     {
         return new static(
             $url,
-            $publicCode
+            $publicCode,
         );
     }
 
