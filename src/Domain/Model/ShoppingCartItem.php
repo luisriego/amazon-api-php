@@ -17,9 +17,6 @@ class ShoppingCartItem
     use TimestampableTrait;
     use WhoTrait;
 
-    #[ORM\Column(type: 'string', length: 50)]
-    private string $product;
-
     #[ORM\Column(type: 'integer')]
     private int $price;
 
@@ -28,9 +25,6 @@ class ShoppingCartItem
 
     #[ORM\Column(type: 'string', length: 255)]
     private ?string $image;
-
-    #[ORM\Column(type: 'string', length: 50)]
-    private string $category;
 
     #[ORM\Column(type: 'string', length: 36, options: ['fixed' => true])]
     private string $shoppingCartMasterId;
@@ -42,15 +36,11 @@ class ShoppingCartItem
 
     private int $stock;
 
-    public function getProduct(): string
-    {
-        return $this->product;
-    }
-
-    public function setProduct(string $product): void
-    {
-        $this->product = $product;
-    }
+    //    #[ORM\Column(type: 'string', length: 50)]
+    //    private string $product;
+    //
+    //    #[ORM\Column(type: 'string', length: 50)]
+    //    private string $category;
 
     public function getPrice(): int
     {
@@ -80,16 +70,6 @@ class ShoppingCartItem
     public function setImage(?string $image): void
     {
         $this->image = $image;
-    }
-
-    public function getCategory(): string
-    {
-        return $this->category;
-    }
-
-    public function setCategory(string $category): void
-    {
-        $this->category = $category;
     }
 
     public function getShoppingCartMasterId(): string

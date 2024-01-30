@@ -17,9 +17,15 @@ class ShoppingCart
     use TimestampableTrait;
     use WhoTrait;
 
-    private string $product;
+    #[ORM\Column(type: 'integer')]
     private int $price;
+
+    #[ORM\Column(type: 'integer')]
     private int $quantity;
+
+    #[ORM\Column(type: 'string', length: 255)]
     private string $image;
-    private string $category;
+
+    //    private string $product; // I think we need here a Product entity or id
+    //    private string $category; // because product have a category yet, I think this is not necessary
 }

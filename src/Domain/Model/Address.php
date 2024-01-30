@@ -17,12 +17,23 @@ class Address
     use TimestampableTrait;
     use WhoTrait;
 
+    #[ORM\Column(type: 'string', length: 50)]
     private string $street;
+
+    #[ORM\Column(type: 'string', length: 30)]
     private string $city;
+
+    #[ORM\Column(type: 'string', length: 20)]
     private string $department;
+
+    #[ORM\Column(type: 'string', length: 10)]
     private string $zipCode;
-    private string $country;
-    private string $userName;
+
+    //    #[ORM\Column(type: 'string', length: 25)]
+    //    private string $userName;  // this may be a relationship
+
+    //    #[ORM\Column(type: 'string', length: 25)]
+    //    private string $country; // this may be a relationship
 
     public function getStreet(): string
     {
@@ -62,25 +73,5 @@ class Address
     public function setZipCode(string $zipCode): void
     {
         $this->zipCode = $zipCode;
-    }
-
-    public function getCountry(): string
-    {
-        return $this->country;
-    }
-
-    public function setCountry(string $country): void
-    {
-        $this->country = $country;
-    }
-
-    public function getUserName(): string
-    {
-        return $this->userName;
-    }
-
-    public function setUserName(string $userName): void
-    {
-        $this->userName = $userName;
     }
 }
