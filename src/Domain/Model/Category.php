@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Domain\Model;
 
-use App\Domain\Common\BaseDomainModel;
 use App\Domain\Repository\ICategoryRepository;
 use App\Domain\Trait\IdentifierTrait;
 use App\Domain\Trait\TimestampableTrait;

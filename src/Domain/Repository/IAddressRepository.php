@@ -14,6 +14,5 @@ interface IAddressRepository
 
     public function remove(Address $review, bool $flush): void;
 
-
     public function findOneByIdOrFail(string $id): Address;
 }

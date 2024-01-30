@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Domain\Model;
 
-use App\Domain\Common\BaseDomainModel;
 use App\Domain\Repository\ICountryRepository;
 use App\Domain\Trait\IdentifierTrait;
 use App\Domain\Trait\TimestampableTrait;
