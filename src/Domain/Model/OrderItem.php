@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Model;
 
 use App\Domain\Repository\IOrderItemRepository;
@@ -24,8 +26,8 @@ class OrderItem
     #[ORM\Column(type: 'string', length: 255)]
     private string $imageUrl;
 
-//    private Order $order;
-//    private Product $product;
+    //    private Order $order;
+    //    private Product $product;
 
     public function getPrice(): int
     {

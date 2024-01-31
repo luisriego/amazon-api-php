@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Model;
 
 use App\Domain\Repository\IOrderRepository;
@@ -40,10 +42,7 @@ class Order
 
     private Address $orderAddress;
 
-    private function __construct()
-    {
-
-    }
+    private function __construct() {}
 
     public function getSubtotal(): int
     {

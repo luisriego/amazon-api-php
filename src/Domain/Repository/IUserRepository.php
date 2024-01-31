@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Repository;
 
 use App\Domain\Model\User;
@@ -20,7 +22,7 @@ interface IUserRepository
 
     public function findAllByCondoId(string $condoId): ?array;
 
-//    public function search(UserFilter $filter): PaginatedResponse;
+    //    public function search(UserFilter $filter): PaginatedResponse;
 
-//    public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void;
+    //    public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void;
 }

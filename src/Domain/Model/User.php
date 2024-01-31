@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Domain\Model;
+declare(strict_types=1);
 
+namespace App\Domain\Model;
 
 use App\Domain\Repository\IUserRepository;
 use App\Domain\Trait\IdentifierTrait;
@@ -12,6 +13,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Uid\Uuid;
+
+use function array_unique;
+use function sha1;
+use function uniqid;
 
 #[ORM\Entity(repositoryClass: IUserRepository::class)]
 #[ORM\HasLifecycleCallbacks]
@@ -63,7 +68,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             $name,
             $email,
             $password,
-            \sha1(\uniqid()),
+            sha1(uniqid()),
         );
     }
 
@@ -96,7 +101,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->email;
     }
-
 
     /**
      * A visual identifier that represents this user.
@@ -164,7 +168,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @see UserInterface
      */
-    public function eraseCredentials()
+    public function eraseCredentials(): void
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
