@@ -36,6 +36,8 @@ class Order
     #[ORM\Column(type: 'string', length: 50)]
     private string $stripeApiKey;
 
+    private OrderStatus $status = OrderStatus::Pending;
+
     private Address $orderAddress;
 
     private function __construct()
@@ -121,5 +123,15 @@ class Order
     public function setOrderAddress(Address $orderAddress): void
     {
         $this->orderAddress = $orderAddress;
+    }
+
+    public function getStatus(): OrderStatus
+    {
+        return $this->status;
+    }
+
+    public function setStatus(OrderStatus $status): void
+    {
+        $this->status = $status;
     }
 }

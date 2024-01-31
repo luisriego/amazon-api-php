@@ -7,9 +7,11 @@ use App\Domain\Repository\IUserRepository;
 use App\Domain\Trait\IdentifierTrait;
 use App\Domain\Trait\IsActiveTrait;
 use App\Domain\Trait\TimestampableTrait;
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity(repositoryClass: IUserRepository::class)]
 #[ORM\HasLifecycleCallbacks]
@@ -29,7 +31,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private readonly ?string $email;
 
     #[ORM\Column(type: 'json')]
-    private $roles = [];
+    private array $roles = [];
 
     #[ORM\Column(type: 'string', length: 40, nullable: true)]
     private ?string $token;
@@ -40,34 +42,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password;
 
     private function __construct(
-        string $id,
         ?string $name,
         ?string $email,
         ?string $password,
         ?string $token,
-        bool $isActive,
-        \DateTimeImmutable $createdOn,
     ) {
-        $this->id = $id;
+        $this->id = Uuid::v4()->toRfc4122();
         $this->name = $name;
         $this->email = $email;
         $this->password = $password;
         $this->token = $token;
-        $this->isActive = $isActive;
-        $this->createdOn = $createdOn;
+        $this->isActive = false;
+        $this->createdOn = new DateTimeImmutable();
         $this->markAsUpdated();
     }
 
-    public static function create($id, $name, $email, $password): self
+    public static function create($name, $email, $password): self
     {
         return new static(
-            $id,
             $name,
             $email,
             $password,
             \sha1(\uniqid()),
-            false,
-            new \DateTimeImmutable()
         );
     }
 
