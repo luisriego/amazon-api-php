@@ -38,9 +38,12 @@ class Order
     #[ORM\Column(type: 'string', length: 50)]
     private string $stripeApiKey;
 
+    #[ORM\Column(type: 'string', enumType: OrderStatus::class)]
     private OrderStatus $status = OrderStatus::Pending;
 
-    private Address $orderAddress;
+    #[ORM\OneToOne(targetEntity: Address::class)]
+    #[ORM\JoinColumn(name: 'address_id', referencedColumnName: 'id')]
+    private ?Address $orderAddress;
 
     private function __construct() {}
 

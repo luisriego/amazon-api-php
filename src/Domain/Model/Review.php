@@ -29,8 +29,9 @@ class Review
     #[ORM\Column(type: 'smallint')]
     private int $rating;
 
-    //    #[ORM\ManyToOne(targetEntity: Product::class, inversedBy: 'reviews')]
-    //    private Product $product;
+    #[ORM\ManyToOne(targetEntity: Product::class, inversedBy: 'reviews')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Product $product;
 
     private function __construct(
         string $name,
@@ -82,5 +83,15 @@ class Review
     public function setRating(int $rating): void
     {
         $this->rating = $rating;
+    }
+
+    public function getProduct(): ?Product
+    {
+        return $this->product;
+    }
+
+    public function setProduct(?Product $product): void
+    {
+        $this->product = $product;
     }
 }

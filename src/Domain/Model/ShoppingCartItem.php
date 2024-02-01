@@ -18,7 +18,7 @@ class ShoppingCartItem
     use WhoTrait;
 
     #[ORM\Column(type: 'integer')]
-    private int $price;
+    private int $price; // I think I don't need this, because the price will be taken from the Product instance
 
     #[ORM\Column(type: 'integer')]
     private int $quantity;
@@ -32,15 +32,25 @@ class ShoppingCartItem
     #[ORM\Column(type: 'string', length: 36, options: ['fixed' => true])]
     private string $shoppingCartId;
 
-    private string $productId;
+    #[ORM\ManyToOne(targetEntity: 'App\Domain\Model\Product')]
+    #[ORM\JoinColumn(name: 'product_id', referencedColumnName: 'id')]
+    private ?Product $product;
+//    private string $productId;
 
     private int $stock;
+
+    #[ORM\ManyToOne(targetEntity: ShoppingCart::class, inversedBy: 'shoppingCarItems')]
+    private ShoppingCart $shoppingCart;
 
     //    #[ORM\Column(type: 'string', length: 50)]
     //    private string $product;
     //
     //    #[ORM\Column(type: 'string', length: 50)]
     //    private string $category;
+
+    private function __construct()
+    {
+    }
 
     public function getPrice(): int
     {
@@ -110,5 +120,15 @@ class ShoppingCartItem
     public function setStock(int $stock): void
     {
         $this->stock = $stock;
+    }
+
+    public function getShoppingCart(): ShoppingCart
+    {
+        return $this->shoppingCart;
+    }
+
+    public function setShoppingCart(ShoppingCart $shoppingCart): void
+    {
+        $this->shoppingCart = $shoppingCart;
     }
 }

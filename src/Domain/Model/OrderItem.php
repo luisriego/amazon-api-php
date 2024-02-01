@@ -8,7 +8,9 @@ use App\Domain\Repository\IOrderItemRepository;
 use App\Domain\Trait\IdentifierTrait;
 use App\Domain\Trait\TimestampableTrait;
 use App\Domain\Trait\WhoTrait;
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity(repositoryClass: IOrderItemRepository::class)]
 class OrderItem
@@ -28,6 +30,25 @@ class OrderItem
 
     //    private Order $order;
     //    private Product $product;
+
+    public function __construct(
+        int $price,
+        int $quantity
+    ) {
+        $this->id = Uuid::v4()->toRfc4122();
+        $this->price  = $price;
+        $this->quantity = $quantity;
+        $this->createdOn = new DateTimeImmutable();
+        $this->markAsUpdated();
+    }
+
+    public static function create($price, $quantity): self
+    {
+        return new static(
+            $price,
+            $quantity,
+        );
+    }
 
     public function getPrice(): int
     {

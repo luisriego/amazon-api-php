@@ -34,7 +34,7 @@ class Category
         $this->name = $name;
         $this->products = new ArrayCollection();
         $this->createdOn = new DateTimeImmutable();
-        $this->updatedOn = new DateTime();
+        $this->markAsUpdated();
     }
 
     public static function create($name): self

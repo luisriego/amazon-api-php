@@ -50,6 +50,9 @@ class Product
     #[ORM\OneToMany(mappedBy: 'image', targetEntity: Product::class, orphanRemoval: true)]
     private Collection $images;
 
+    #[ORM\OneToMany(mappedBy: Review::class, targetEntity: Product::class, orphanRemoval: true)]
+    private Collection $reviews;
+
     private function __construct(
         string $name,
         string $description,
@@ -61,9 +64,10 @@ class Product
         $this->price = $price;
         $this->stock = 0;
         $this->images = new ArrayCollection();
+        $this->reviews = new ArrayCollection();
         $this->status = ProductStatus::Active;
         $this->createdOn = new DateTimeImmutable();
-        $this->updatedOn = new DateTime();
+        $this->markAsUpdated();
     }
 
     public static function create($name, $description, $price): self
@@ -173,5 +177,33 @@ class Product
     public function getImages(): Collection
     {
         return $this->images;
+    }
+
+    // Method to add a review to the product
+    public function addReview(Review $review): self
+    {
+        if (!$this->reviews->contains($review)) {
+            $this->reviews[] = $review;
+            $review->setProduct($this);
+        }
+
+        return $this;
+    }
+    // Method to remove a review from the product
+    public function removeReview(Review $review): self
+    {
+        if ($this->reviews->removeElement($review)) {
+            // set the owning side to null (unless already changed)
+            if ($review->getProduct() === $this) {
+                $review->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getReviews(): Collection
+    {
+        return $this->reviews;
     }
 }
