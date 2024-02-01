@@ -10,6 +10,8 @@ use App\Domain\Trait\TimestampableTrait;
 use App\Domain\Trait\WhoTrait;
 use DateTime;
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 
@@ -42,6 +44,12 @@ class Product
     #[ORM\Column(type: 'string', enumType: ProductStatus::class)]
     private ProductStatus $status;
 
+    #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'products')]
+    private ?Category $category;
+
+    #[ORM\OneToMany(mappedBy: 'image', targetEntity: Product::class, orphanRemoval: true)]
+    private Collection $images;
+
     private function __construct(
         string $name,
         string $description,
@@ -52,6 +60,7 @@ class Product
         $this->description = $description;
         $this->price = $price;
         $this->stock = 0;
+        $this->images = new ArrayCollection();
         $this->status = ProductStatus::Active;
         $this->createdOn = new DateTimeImmutable();
         $this->updatedOn = new DateTime();
@@ -116,12 +125,12 @@ class Product
         $this->seller = $seller;
     }
 
-    public function getStock(): string
+    public function getStock(): ?int
     {
         return $this->stock;
     }
 
-    public function setStock(string $stock): void
+    public function setStock(?int $stock): void
     {
         $this->stock = $stock;
     }
@@ -134,5 +143,35 @@ class Product
     public function setStatus(ProductStatus $status): void
     {
         $this->status = $status;
+    }
+
+    // Method to add an image to the product
+    public function addImage(Image $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    // Method to remove an image from the product
+    public function removeImage(Image $image): self
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getProduct() === $this) {
+                $image->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+    // Get all images associated with this product
+    public function getImages(): Collection
+    {
+        return $this->images;
     }
 }

@@ -10,6 +10,8 @@ use App\Domain\Trait\TimestampableTrait;
 use App\Domain\Trait\WhoTrait;
 use DateTime;
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 
@@ -23,10 +25,14 @@ class Category
     #[ORM\Column(type: 'string', length: 50)]
     private string $name;
 
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: Category::class, orphanRemoval: false)]
+    private Collection $products;
+
     private function __construct(string $name)
     {
         $this->id = Uuid::v4()->toRfc4122();
         $this->name = $name;
+        $this->products = new ArrayCollection();
         $this->createdOn = new DateTimeImmutable();
         $this->updatedOn = new DateTime();
     }

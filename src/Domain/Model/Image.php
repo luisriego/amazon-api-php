@@ -28,18 +28,17 @@ class Image
     #[ORM\Column(type: 'string', length: 255)]
     private string $publicCode;
 
-    //    #[ORM\ManyToOne(targetEntity: Product::class, inversedBy: 'images')]
-    //    private Collection $product;
+    #[ORM\ManyToOne(targetEntity: Product::class, inversedBy: 'images')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Product $product;
 
     private function __construct(
         string $url,
         string $publicCode,
-        //        string $product,
     ) {
         $this->id = Uuid::v4()->toRfc4122();
         $this->url = $url;
         $this->publicCode = $publicCode;
-        //        $this->product = new ArrayCollection();
         $this->createdOn = new DateTimeImmutable();
         $this->updatedOn = new DateTime();
     }
@@ -70,5 +69,15 @@ class Image
     public function setPublicCode(string $publicCode): void
     {
         $this->publicCode = $publicCode;
+    }
+
+    public function getProduct(): ?Product
+    {
+        return $this->product;
+    }
+
+    public function setProduct(?Product $product): void
+    {
+        $this->product = $product;
     }
 }
