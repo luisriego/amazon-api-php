@@ -29,7 +29,7 @@ class Product
     #[ORM\Column(type: 'string', length: 255)]
     private string $description;
 
-    #[ORM\Column(type: 'int')]
+    #[ORM\Column(type: 'integer')]
     private int $price;
 
     #[ORM\Column(type: 'smallint')]
@@ -38,7 +38,7 @@ class Product
     #[ORM\Column(type: 'string', length: 50, nullable: true)]
     private ?string $seller;
 
-    #[ORM\Column(type: 'int')]
+    #[ORM\Column(type: 'integer')]
     private ?int $stock;
 
     #[ORM\Column(type: 'string', enumType: ProductStatus::class)]
@@ -50,7 +50,7 @@ class Product
     #[ORM\OneToMany(mappedBy: 'image', targetEntity: Product::class, orphanRemoval: true)]
     private Collection $images;
 
-    #[ORM\OneToMany(mappedBy: Review::class, targetEntity: Product::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: Review::class, targetEntity: Product::class, orphanRemoval: true,)]
     private Collection $reviews;
 
     private function __construct(
@@ -67,7 +67,9 @@ class Product
         $this->reviews = new ArrayCollection();
         $this->status = ProductStatus::Active;
         $this->createdOn = new DateTimeImmutable();
+        $this->whoCreated();
         $this->markAsUpdated();
+        $this->whoUpdated();
     }
 
     public static function create($name, $description, $price): self

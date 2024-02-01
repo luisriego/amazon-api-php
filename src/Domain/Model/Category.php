@@ -6,6 +6,7 @@ namespace App\Domain\Model;
 
 use App\Domain\Repository\ICategoryRepository;
 use App\Domain\Trait\IdentifierTrait;
+use App\Domain\Trait\IsActiveTrait;
 use App\Domain\Trait\TimestampableTrait;
 use App\Domain\Trait\WhoTrait;
 use DateTime;
@@ -20,6 +21,7 @@ class Category
 {
     use IdentifierTrait;
     use TimestampableTrait;
+    use IsActiveTrait;
     use WhoTrait;
 
     #[ORM\Column(type: 'string', length: 50)]
@@ -50,5 +52,15 @@ class Category
     public function setName(string $name): void
     {
         $this->name = $name;
+    }
+
+    public function getProducts(): Collection
+    {
+        return $this->products;
+    }
+
+    public function setProducts(Collection $products): void
+    {
+        $this->products = $products;
     }
 }

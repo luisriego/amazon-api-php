@@ -37,6 +37,7 @@ class ShoppingCartItem
     private ?Product $product;
 //    private string $productId;
 
+    #[ORM\Column(type: 'integer')]
     private int $stock;
 
     #[ORM\ManyToOne(targetEntity: ShoppingCart::class, inversedBy: 'shoppingCarItems')]
