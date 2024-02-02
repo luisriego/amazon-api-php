@@ -35,7 +35,7 @@ class ShoppingCartItem
     #[ORM\ManyToOne(targetEntity: 'App\Domain\Model\Product')]
     #[ORM\JoinColumn(name: 'product_id', referencedColumnName: 'id')]
     private ?Product $product;
-//    private string $productId;
+    //    private string $productId;
 
     #[ORM\Column(type: 'integer')]
     private int $stock;
@@ -49,9 +49,7 @@ class ShoppingCartItem
     //    #[ORM\Column(type: 'string', length: 50)]
     //    private string $category;
 
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 
     public function getPrice(): int
     {

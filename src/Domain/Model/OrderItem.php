@@ -33,7 +33,7 @@ class OrderItem
 
     public function __construct(
         int $price,
-        int $quantity
+        int $quantity,
     ) {
         $this->id = Uuid::v4()->toRfc4122();
         $this->price  = $price;

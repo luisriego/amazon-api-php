@@ -8,7 +8,6 @@ use App\Domain\Repository\IProductRepository;
 use App\Domain\Trait\IdentifierTrait;
 use App\Domain\Trait\TimestampableTrait;
 use App\Domain\Trait\WhoTrait;
-use DateTime;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -50,7 +49,7 @@ class Product
     #[ORM\OneToMany(mappedBy: 'image', targetEntity: Product::class, orphanRemoval: true)]
     private Collection $images;
 
-    #[ORM\OneToMany(mappedBy: Review::class, targetEntity: Product::class, orphanRemoval: true,)]
+    #[ORM\OneToMany(mappedBy: Review::class, targetEntity: Product::class, orphanRemoval: true, )]
     private Collection $reviews;
 
     private function __construct(
@@ -191,6 +190,7 @@ class Product
 
         return $this;
     }
+
     // Method to remove a review from the product
     public function removeReview(Review $review): self
     {

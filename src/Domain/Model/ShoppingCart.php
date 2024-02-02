@@ -8,8 +8,8 @@ use App\Domain\Repository\IShoppingCartRepository;
 use App\Domain\Trait\IdentifierTrait;
 use App\Domain\Trait\TimestampableTrait;
 use App\Domain\Trait\WhoTrait;
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: IShoppingCartRepository::class)]
 class ShoppingCart
@@ -30,10 +30,8 @@ class ShoppingCart
     #[ORM\OneToMany(mappedBy: ShoppingCartItem::class, targetEntity: Product::class, orphanRemoval: true)]
     private Collection $ShoppingCartItems;
 
-
     //    private string $product; // I think we need here a Product entity or id
     //    private string $category; // because product have a category yet, I think this is not necessary
-
 
     public function getPrice(): int
     {
@@ -64,7 +62,6 @@ class ShoppingCart
     {
         $this->image = $image;
     }
-
 
     // Method to add a shoppingCartItem to the product
     public function addShoppingCartItem(ShoppingCartItem $shoppingCartItem): self

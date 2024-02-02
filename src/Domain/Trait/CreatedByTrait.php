@@ -13,9 +13,8 @@ trait CreatedByTrait
     protected readonly string $createdBy;
 
     public function __construct(
-        private readonly TokenStorageInterface $tokenStorage
-    ) {
-    }
+        private readonly TokenStorageInterface $tokenStorage,
+    ) {}
 
     public function getCreatedBy(): string
     {
