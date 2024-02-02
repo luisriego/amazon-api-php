@@ -6,7 +6,7 @@ namespace App\Domain\Repository;
 
 use App\Domain\Model\Country;
 
-interface ICountryRepository
+interface CountryRepositoryInterface
 {
     public function add(Country $review, bool $flush): void;
 

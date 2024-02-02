@@ -6,7 +6,7 @@ namespace App\Domain\Repository;
 
 use App\Domain\Model\Order;
 
-interface IOrderRepository
+interface OrderRepositoryInterface
 {
     public function add(Order $review, bool $flush): void;
 

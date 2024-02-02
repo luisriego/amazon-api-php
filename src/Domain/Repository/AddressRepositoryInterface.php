@@ -6,7 +6,7 @@ namespace App\Domain\Repository;
 
 use App\Domain\Model\Address;
 
-interface IAddressRepository
+interface AddressRepositoryInterface
 {
     public function add(Address $review, bool $flush): void;
 

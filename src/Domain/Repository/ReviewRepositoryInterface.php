@@ -6,7 +6,7 @@ namespace App\Domain\Repository;
 
 use App\Domain\Model\Review;
 
-interface IReviewRepository
+interface ReviewRepositoryInterface
 {
     public function add(Review $review, bool $flush): void;
 

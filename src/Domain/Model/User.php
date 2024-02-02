@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Model;
 
-use App\Domain\Repository\IUserRepository;
+use App\Domain\Repository\UserRepositoryInterface;
 use App\Domain\Trait\IdentifierTrait;
 use App\Domain\Trait\IsActiveTrait;
 use App\Domain\Trait\TimestampableTrait;
@@ -18,7 +18,7 @@ use function array_unique;
 use function sha1;
 use function uniqid;
 
-#[ORM\Entity(repositoryClass: IUserRepository::class)]
+#[ORM\Entity(repositoryClass: UserRepositoryInterface::class)]
 #[ORM\HasLifecycleCallbacks]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {

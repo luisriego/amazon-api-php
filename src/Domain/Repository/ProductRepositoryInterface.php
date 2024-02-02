@@ -6,7 +6,7 @@ namespace App\Domain\Repository;
 
 use App\Domain\Model\Product;
 
-interface IProductRepository
+interface ProductRepositoryInterface
 {
     public function add(Product $product, bool $flush): void;
 

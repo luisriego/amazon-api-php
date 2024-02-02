@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Domain\Model;
 
-use App\Domain\Repository\IAddressRepository;
+use App\Domain\Repository\AddressRepositoryInterface;
 use App\Domain\Trait\IdentifierTrait;
 use App\Domain\Trait\TimestampableTrait;
 use App\Domain\Trait\WhoTrait;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: IAddressRepository::class)]
+#[ORM\Entity(repositoryClass: AddressRepositoryInterface::class)]
 class Address
 {
     use IdentifierTrait;

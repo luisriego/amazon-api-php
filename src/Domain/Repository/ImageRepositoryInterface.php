@@ -6,7 +6,7 @@ namespace App\Domain\Repository;
 
 use App\Domain\Model\Image;
 
-interface IImageRepository
+interface ImageRepositoryInterface
 {
     public function add(Image $review, bool $flush): void;
 

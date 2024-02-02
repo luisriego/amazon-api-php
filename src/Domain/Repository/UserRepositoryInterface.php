@@ -6,7 +6,7 @@ namespace App\Domain\Repository;
 
 use App\Domain\Model\User;
 
-interface IUserRepository
+interface UserRepositoryInterface
 {
     public function add(User $user, bool $flush): void;
 
@@ -18,9 +18,9 @@ interface IUserRepository
 
     public function findOneByEmail(string $email): ?User;
 
-    public function findOneByEmailOrFail(string $id): User;
+    public function findOneByEmailOrFail(string $email): User;
 
-    public function findAllByCondoId(string $condoId): ?array;
+    //    public function findAllByCondoId(string $condoId): ?array;
 
     //    public function search(UserFilter $filter): PaginatedResponse;
 

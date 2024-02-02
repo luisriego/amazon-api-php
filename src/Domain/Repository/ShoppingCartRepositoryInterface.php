@@ -6,7 +6,7 @@ namespace App\Domain\Repository;
 
 use App\Domain\Model\ShoppingCart;
 
-interface IShoppingCartRepository
+interface ShoppingCartRepositoryInterface
 {
     public function add(ShoppingCart $review, bool $flush): void;
 

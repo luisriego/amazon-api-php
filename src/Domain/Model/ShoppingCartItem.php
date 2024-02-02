@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Domain\Model;
 
-use App\Domain\Repository\IShoppingCartItemRepository;
+use App\Domain\Repository\ShoppingCartItemRepositoryInterface;
 use App\Domain\Trait\IdentifierTrait;
 use App\Domain\Trait\TimestampableTrait;
 use App\Domain\Trait\WhoTrait;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: IShoppingCartItemRepository::class)]
+#[ORM\Entity(repositoryClass: ShoppingCartItemRepositoryInterface::class)]
 class ShoppingCartItem
 {
     use IdentifierTrait;

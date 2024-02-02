@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace App\Domain\Model;
 
-use App\Domain\Repository\IOrderRepository;
+use App\Domain\Enums\OrderStatus;
+use App\Domain\Repository\OrderRepositoryInterface;
 use App\Domain\Trait\IdentifierTrait;
 use App\Domain\Trait\TimestampableTrait;
 use App\Domain\Trait\WhoTrait;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: IOrderRepository::class)]
+#[ORM\Entity(repositoryClass: OrderRepositoryInterface::class)]
 class Order
 {
     use IdentifierTrait;

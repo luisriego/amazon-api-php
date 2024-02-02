@@ -6,7 +6,7 @@ namespace App\Domain\Repository;
 
 use App\Domain\Model\Category;
 
-interface ICategoryRepository
+interface CategoryRepositoryInterface
 {
     public function add(Category $review, bool $flush): void;
 

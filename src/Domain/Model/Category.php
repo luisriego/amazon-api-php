@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Model;
 
-use App\Domain\Repository\ICategoryRepository;
+use App\Domain\Repository\CategoryRepositoryInterface;
 use App\Domain\Trait\IdentifierTrait;
 use App\Domain\Trait\IsActiveTrait;
 use App\Domain\Trait\TimestampableTrait;
@@ -15,7 +15,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 
-#[ORM\Entity(repositoryClass: ICategoryRepository::class)]
+#[ORM\Entity(repositoryClass: CategoryRepositoryInterface::class)]
 class Category
 {
     use IdentifierTrait;

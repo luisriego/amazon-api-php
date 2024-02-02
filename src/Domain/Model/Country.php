@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Model;
 
-use App\Domain\Repository\ICountryRepository;
+use App\Domain\Repository\CountryRepositoryInterface;
 use App\Domain\Trait\IdentifierTrait;
 use App\Domain\Trait\TimestampableTrait;
 use App\Domain\Trait\WhoTrait;
@@ -13,7 +13,7 @@ use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 
-#[ORM\Entity(repositoryClass: ICountryRepository::class)]
+#[ORM\Entity(repositoryClass: CountryRepositoryInterface::class)]
 class Country
 {
     use IdentifierTrait;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Model;
 
-use App\Domain\Repository\IImageRepository;
+use App\Domain\Repository\ImageRepositoryInterface;
 use App\Domain\Trait\IdentifierTrait;
 use App\Domain\Trait\TimestampableTrait;
 use App\Domain\Trait\WhoTrait;
@@ -13,7 +13,7 @@ use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 
-#[ORM\Entity(repositoryClass: IImageRepository::class)]
+#[ORM\Entity(repositoryClass: ImageRepositoryInterface::class)]
 class Image
 {
     use IdentifierTrait;
