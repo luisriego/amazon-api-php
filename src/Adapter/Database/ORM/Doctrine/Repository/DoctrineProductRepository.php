@@ -3,6 +3,7 @@
 namespace App\Adapter\Database\ORM\Doctrine\Repository;
 
 use App\Adapter\Database\ORM\Doctrine\BaseRepository;
+use App\Domain\Exception\ResourceNotFoundException;
 use App\Domain\Model\Product;
 use App\Domain\Repository\ProductRepositoryInterface;
 use Doctrine\Persistence\ManagerRegistry;
@@ -25,16 +26,28 @@ class DoctrineProductRepository extends BaseRepository implements ProductReposit
 
     public function save(Product $product, bool $flush): void
     {
-        // TODO: Implement save() method.
+        $this->getEntityManager()->persist($product);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
     }
 
     public function remove(Product $product, bool $flush): void
     {
-        // TODO: Implement remove() method.
+        $this->getEntityManager()->remove($product);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
     }
 
     public function findOneByIdOrFail(string $id): Product
     {
-        // TODO: Implement findOneByIdOrFail() method.
+        if (null === $product = $this->find($id)) {
+            throw ResourceNotFoundException::createFromClassAndId(Product::class, $id);
+        }
+
+        return $product;
     }
 }
