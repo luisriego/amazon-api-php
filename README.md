@@ -126,7 +126,7 @@ return (new PhpCsFixer\Config())
     ->setFinder($finder);
 ```
 
-on composer.json scripts include this lines
+in composer.json scripts include this lines
 ```
     "analyze:standards": [
         "tools/php-cs-fixer/vendor/bin/php-cs-fixer fix src --dry-run --verbose --show-progress=dots"
