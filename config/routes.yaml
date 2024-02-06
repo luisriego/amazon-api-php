@@ -1,5 +1,3 @@
-controllers:
-    resource:
-        path: ../src/Adapter/Framework/Http/Controller/
-        namespace: App\Adapter\Framework\Http\Controller
-    type: attribute
+#api_health_check:
+#    path: /api/health-check
+#    methods: [GET]
