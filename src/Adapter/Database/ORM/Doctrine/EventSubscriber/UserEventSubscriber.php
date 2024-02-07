@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Adapter\Database\ORM\Doctrine\EventSubscriber;
 
 use Doctrine\Common\EventSubscriber;
@@ -8,9 +10,9 @@ use Doctrine\Persistence\Event\LifecycleEventArgs;
 
 class UserEventSubscriber implements EventSubscriber
 {
-//    public function __construct(private LoggerInterface $logger)
-//    {
-//    }
+    //    public function __construct(private LoggerInterface $logger)
+    //    {
+    //    }
 
     public function getSubscribedEvents(): array
     {
@@ -23,8 +25,8 @@ class UserEventSubscriber implements EventSubscriber
     {
         $entity = $args->getObject();
 
-//        if ($entity instanceof User) {
-//            $this->logger->info(\sprintf('User has been updated! Changes: %s', 'no lo sé'));
-//        }
+        //        if ($entity instanceof User) {
+        //            $this->logger->info(\sprintf('User has been updated! Changes: %s', 'no lo sé'));
+        //        }
     }
 }

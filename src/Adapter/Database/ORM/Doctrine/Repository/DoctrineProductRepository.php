@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Adapter\Database\ORM\Doctrine\Repository;
 
 use App\Adapter\Database\ORM\Doctrine\BaseRepository;
@@ -48,6 +50,7 @@ class DoctrineProductRepository extends BaseRepository implements ProductReposit
             throw ResourceNotFoundException::createFromClassAndId(Product::class, $id);
         }
 
+        /** @var Product $product */
         return $product;
     }
 }

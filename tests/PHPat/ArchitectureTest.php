@@ -1,6 +1,8 @@
 <?php
 
-namespace Test\PHPat;
+declare(strict_types=1);
+
+namespace Tests\PHPat;
 
 use PHPat\Selector\Selector;
 use PHPat\Test\Builder\Rule;
