@@ -1,0 +1,9 @@
+controllers:
+    resource:
+        path: ../../src/Adapter/Framework/Http/Controller/
+        namespace: App\Adapter\Framework\Http\Controller
+    type: attribute
+
+kernel:
+  resource: ../../src/Kernel.php
+  type: annotation
