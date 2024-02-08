@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity(repositoryClass: ReviewRepositoryInterface::class)]
-class Review
+final class Review
 {
     use IdentifierTrait;
     use TimestampableTrait;
@@ -48,7 +48,7 @@ class Review
 
     public static function create($name, $comment, $rating): self
     {
-        return new static(
+        return new Review(
             $name,
             $comment,
             $rating,

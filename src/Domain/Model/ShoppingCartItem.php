@@ -8,10 +8,12 @@ use App\Domain\Repository\ShoppingCartItemRepositoryInterface;
 use App\Domain\Trait\IdentifierTrait;
 use App\Domain\Trait\TimestampableTrait;
 use App\Domain\Trait\WhoTrait;
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity(repositoryClass: ShoppingCartItemRepositoryInterface::class)]
-class ShoppingCartItem
+final class ShoppingCartItem
 {
     use IdentifierTrait;
     use TimestampableTrait;
@@ -35,7 +37,8 @@ class ShoppingCartItem
     #[ORM\ManyToOne(targetEntity: 'App\Domain\Model\Product')]
     #[ORM\JoinColumn(name: 'product_id', referencedColumnName: 'id')]
     private ?Product $product;
-    //    private string $productId;
+
+//    private string $productId;
 
     #[ORM\Column(type: 'integer')]
     private int $stock;
@@ -49,7 +52,32 @@ class ShoppingCartItem
     //    #[ORM\Column(type: 'string', length: 50)]
     //    private string $category;
 
-    private function __construct() {}
+    private function __construct(
+        ?Product $product,
+        ?int $quantity,
+        string $shoppingCartMasterId,
+        string $shoppingCartId,
+    ) {
+        $this->id = Uuid::v4()->toRfc4122();
+        $this->product = $product;
+        $this->quantity = $quantity;
+        $this->shoppingCartMasterId = $shoppingCartMasterId;
+        $this->shoppingCartId = $shoppingCartId;
+        $this->createdOn = new DateTimeImmutable();
+        $this->whoCreated();
+        $this->markAsUpdated();
+        $this->whoUpdated();
+    }
+
+    public static function create($product, $quantity, $shoppingCartMasterId, $shoppingCartId): self
+    {
+        return new static(
+            $product,
+            $quantity,
+            $shoppingCartMasterId,
+            $shoppingCartId,
+        );
+    }
 
     public function getPrice(): int
     {
@@ -99,16 +127,6 @@ class ShoppingCartItem
     public function setShoppingCartId(string $shoppingCartId): void
     {
         $this->shoppingCartId = $shoppingCartId;
-    }
-
-    public function getProductId(): string
-    {
-        return $this->productId;
-    }
-
-    public function setProductId(string $productId): void
-    {
-        $this->productId = $productId;
     }
 
     public function getStock(): int

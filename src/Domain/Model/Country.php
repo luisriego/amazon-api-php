@@ -6,6 +6,7 @@ namespace App\Domain\Model;
 
 use App\Domain\Repository\CountryRepositoryInterface;
 use App\Domain\Trait\IdentifierTrait;
+use App\Domain\Trait\IsActiveTrait;
 use App\Domain\Trait\TimestampableTrait;
 use App\Domain\Trait\WhoTrait;
 use DateTime;
@@ -14,10 +15,11 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity(repositoryClass: CountryRepositoryInterface::class)]
-class Country
+final class Country
 {
     use IdentifierTrait;
     use TimestampableTrait;
+    use IsActiveTrait;
     use WhoTrait;
 
     #[ORM\Column(type: 'string', length: 30)]
@@ -38,13 +40,16 @@ class Country
         $this->name = $name;
         $this->iso2 = $iso2;
         $this->iso3 = $iso3;
+        $this->isActive = false;
         $this->createdOn = new DateTimeImmutable();
-        $this->updatedOn = new DateTime();
+        $this->whoCreated();
+        $this->markAsUpdated();
+        $this->whoUpdated();
     }
 
     public static function create($name, $iso2, $iso3): self
     {
-        return new static(
+        return new Country(
             $name,
             $iso2,
             $iso3,

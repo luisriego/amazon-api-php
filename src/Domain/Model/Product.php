@@ -17,7 +17,7 @@ use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity(repositoryClass: ProductRepositoryInterface::class)]
 #[ORM\HasLifecycleCallbacks]
-class Product
+final class Product
 {
     use IdentifierTrait;
     use TimestampableTrait;

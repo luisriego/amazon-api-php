@@ -8,7 +8,7 @@ use App\Domain\Validation\Traits\AssertEmailTrait;
 use App\Domain\Validation\Traits\AssertLengthRangeTrait;
 use App\Domain\Validation\Traits\AssertNotNullTrait;
 
-class CreateUserInputDto
+final class CreateUserInputDto
 {
     use AssertNotNullTrait;
     use AssertLengthRangeTrait;
@@ -37,6 +37,6 @@ class CreateUserInputDto
 
     public static function create(?string $name, ?string $email, ?string $password): self
     {
-        return new static($name, $email, $password);
+        return new CreateUserInputDto($name, $email, $password);
     }
 }
