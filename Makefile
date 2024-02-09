@@ -41,3 +41,6 @@ composer-install: ## Installs composer dependencies
 
 ssh: ## bash into the be container
 	U_ID=${UID} docker exec -it --user ${UID} ${DOCKER_BE} bash
+
+generate-ssh-keys: ## Generates SSH keys for JWT authentication
+	U_ID=${UID} docker exec --user ${UID} ${DOCKER_BE} bin/console lexik:jwt:generate-keypair

@@ -12,9 +12,9 @@ trait CreatedByTrait
     #[ORM\Column(type: 'string', length: 50)]
     protected string $createdBy;
 
-    public function __construct(
-        private readonly TokenStorageInterface $tokenStorage,
-    ) {}
+//    public function __construct(
+//        private readonly TokenStorageInterface $tokenStorage,
+//    ) {}
 
     public function getCreatedBy(): string
     {
@@ -24,6 +24,7 @@ trait CreatedByTrait
     #[ORM\PrePersist]
     public function whoCreated(): void
     {
-        $this->createdBy = $this->tokenStorage->getToken()->getUser()->getUserIdentifier();
+//        $this->createdBy = $this->tokenStorage->getToken()->getUser()->getUserIdentifier();
+        $this->createdBy = "Admin";
     }
 }

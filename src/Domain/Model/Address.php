@@ -47,6 +47,8 @@ final class Address
         $this->markAsUpdated();
         $this->whoUpdated();
     }
+
+
     public function getStreet(): string
     {
         return $this->street;
