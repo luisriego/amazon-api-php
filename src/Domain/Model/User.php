@@ -9,6 +9,7 @@ use App\Domain\Repository\UserRepositoryInterface;
 use App\Domain\Trait\IdentifierTrait;
 use App\Domain\Trait\IsActiveTrait;
 use App\Domain\Trait\TimestampableTrait;
+use App\Domain\Trait\UpdatedByTrait;
 use App\Domain\Trait\WhoTrait;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
@@ -27,9 +28,8 @@ final class User implements UserInterface, PasswordAuthenticatedUserInterface
     use IdentifierTrait;
     use TimestampableTrait;
     use IsActiveTrait;
-    use WhoTrait;
+    use UpdatedByTrait;
 
-    public const MIN_AGE = 18;
     public const NAME_MIN_LENGTH = 2;
     public const NAME_MAX_LENGTH = 80;
 
@@ -50,10 +50,6 @@ final class User implements UserInterface, PasswordAuthenticatedUserInterface
     ])]
     private ?string $password;
 
-    #[ORM\ManyToOne(targetEntity: Address::class)]
-    #[ORM\JoinColumn(name: 'address_id', referencedColumnName: 'id')]
-    private ?Address $address;
-
     private function __construct(
         ?string $name,
         ?string $email,
@@ -67,7 +63,6 @@ final class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->token = $token;
         $this->isActive = false;
         $this->createdOn = new DateTimeImmutable();
-        $this->whoCreated();
         $this->markAsUpdated();
         $this->whoUpdated();
     }

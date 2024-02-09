@@ -33,14 +33,26 @@ final class Address
     #[ORM\Column(type: 'string', length: 10)]
     private string $zipCode;
 
-    //    #[ORM\Column(type: 'string', length: 25)]
-    //    private string $userName;  // this may be a relationship
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(name: 'user_id', referencedColumnName: 'id')]
+    private ?User $user;
 
     //    #[ORM\Column(type: 'string', length: 25)]
     //    private string $country; // this may be a relationship
 
-    private function __construct() {
+    private function __construct(
+        string $street,
+        string $city,
+        string $department,
+        string $zipCode,
+        User $user
+    ) {
         $this->id = Uuid::v4()->toRfc4122();
+        $this->street = $street;
+        $this->city = $city;
+        $this->department = $department;
+        $this->zipCode = $zipCode;
+        $this->user = $user;
         $this->isActive = false;
         $this->createdOn = new DateTimeImmutable();
         $this->whoCreated();
@@ -48,6 +60,22 @@ final class Address
         $this->whoUpdated();
     }
 
+    public function create(
+        string $street,
+        string $city,
+        string $department,
+        string $zipCode,
+        User $user
+    ): self
+    {
+        return new Address(
+            $street,
+            $city,
+            $department,
+            $zipCode,
+            $user,
+        );
+    }
 
     public function getStreet(): string
     {
@@ -87,5 +115,10 @@ final class Address
     public function setZipCode(string $zipCode): void
     {
         $this->zipCode = $zipCode;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
     }
 }
