@@ -74,7 +74,7 @@ final class Product
 
     public static function create($name, $description, $price): self
     {
-        return new static(
+        return new Product(
             $name,
             $description,
             $price,

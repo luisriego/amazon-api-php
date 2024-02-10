@@ -20,4 +20,9 @@ final class ResourceNotFoundException extends DomainException
     {
         return new ResourceNotFoundException(sprintf('Resource of type [%s] with Email [%s] not found', $class, $email));
     }
+
+    public static function createFromClassAndName(string $class, string $name): self
+    {
+        return new ResourceNotFoundException(sprintf('Resource of type [%s] with Name [%s] not found', $class, $name));
+    }
 }

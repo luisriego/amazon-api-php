@@ -85,4 +85,9 @@ final class Country
     {
         $this->iso3 = $iso3;
     }
+
+    public function __toString(): string
+    {
+        return $this->name;
+    }
 }
