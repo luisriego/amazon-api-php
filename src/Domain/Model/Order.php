@@ -7,9 +7,12 @@ namespace App\Domain\Model;
 use App\Domain\Enums\OrderStatus;
 use App\Domain\Repository\OrderRepositoryInterface;
 use App\Domain\Trait\IdentifierTrait;
+use App\Domain\Trait\IsActiveTrait;
 use App\Domain\Trait\TimestampableTrait;
 use App\Domain\Trait\WhoTrait;
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity(repositoryClass: OrderRepositoryInterface::class)]
 class Order
@@ -17,6 +20,7 @@ class Order
     use IdentifierTrait;
     use TimestampableTrait;
     use WhoTrait;
+    use IsActiveTrait;
 
     #[ORM\Column(type: 'integer')]
     private int $subtotal;
@@ -46,7 +50,14 @@ class Order
     #[ORM\JoinColumn(name: 'address_id', referencedColumnName: 'id')]
     private ?Address $orderAddress;
 
-    private function __construct() {}
+    private function __construct() {
+        $this->id = Uuid::v4()->toRfc4122();
+        $this->isActive = false;
+        $this->createdOn = new DateTimeImmutable();
+        $this->whoCreated();
+        $this->markAsUpdated();
+        $this->whoUpdated();
+    }
 
     public function getSubtotal(): int
     {

@@ -8,11 +8,14 @@ use App\Domain\Repository\ShoppingCartRepositoryInterface;
 use App\Domain\Trait\IdentifierTrait;
 use App\Domain\Trait\TimestampableTrait;
 use App\Domain\Trait\WhoTrait;
+use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity(repositoryClass: ShoppingCartRepositoryInterface::class)]
-class ShoppingCart
+final class ShoppingCart
 {
     use IdentifierTrait;
     use TimestampableTrait;
@@ -28,10 +31,26 @@ class ShoppingCart
     private string $image;
 
     #[ORM\OneToMany(mappedBy: ShoppingCartItem::class, targetEntity: Product::class, orphanRemoval: true)]
-    private Collection $ShoppingCartItems;
+    private Collection $shoppingCartItems;
 
     //    private string $product; // I think we need here a Product entity or id
     //    private string $category; // because product have a category yet, I think this is not necessary
+
+    public function __construct(
+        ?int $price,
+        ?int $quantity,
+        ?string $image,
+    ) {
+        $this->id = Uuid::v4()->toRfc4122();
+        $this->price = $price;
+        $this->quantity = $quantity;
+        $this->image = $image;
+        $this->shoppingCartItems = new ArrayCollection();
+        $this->createdOn = new DateTimeImmutable();
+        $this->whoCreated();
+        $this->markAsUpdated();
+        $this->whoUpdated();
+    }
 
     public function getPrice(): int
     {
@@ -89,6 +108,6 @@ class ShoppingCart
 
     public function getShoppingCartItems(): Collection
     {
-        return $this->ShoppingCartItems;
+        return $this->shoppingCartItems;
     }
 }

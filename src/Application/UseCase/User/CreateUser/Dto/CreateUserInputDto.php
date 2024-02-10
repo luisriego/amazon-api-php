@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace App\Application\UseCase\User\CreateUser\Dto;
 
-use App\Domain\Model\User;
-use App\Domain\Validation\Traits\AssertMinimumAgeTrait;
+use App\Domain\Validation\Traits\AssertEmailTrait;
+use App\Domain\Validation\Traits\AssertLengthRangeTrait;
 use App\Domain\Validation\Traits\AssertNotNullTrait;
 
-class CreateUserInputDto
+final class CreateUserInputDto
 {
     use AssertNotNullTrait;
+    use AssertLengthRangeTrait;
+    use AssertEmailTrait;
 
     private const ARGS = [
         'name',
@@ -29,10 +31,12 @@ class CreateUserInputDto
         $this->name = $name;
 
         $this->assertNotNull(self::ARGS, [$this->name, $this->email, $this->password]);
+        $this->assertValueRangeLength($this->name, 3, 80);
+        $this->assertEmail($this->email);
     }
 
     public static function create(?string $name, ?string $email, ?string $password): self
     {
-        return new static($name, $email, $password);
+        return new CreateUserInputDto($name, $email, $password);
     }
 }

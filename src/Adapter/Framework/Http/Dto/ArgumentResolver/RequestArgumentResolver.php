@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Adapter\Framework\Http\Dto\ArgumentResolver;
 
 use App\Adapter\Framework\Http\Dto\RequestDto;
 use App\Adapter\Framework\Http\RequestTransformer\RequestTransformer;
 use Generator;
+use ReflectionClass;
 use ReflectionException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
@@ -13,9 +16,8 @@ use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 class RequestArgumentResolver implements ValueResolverInterface
 {
     public function __construct(
-        private readonly RequestTransformer $requestTransformer
-    ) {
-    }
+        private readonly RequestTransformer $requestTransformer,
+    ) {}
 
     /**
      * @throws ReflectionException
@@ -26,7 +28,7 @@ class RequestArgumentResolver implements ValueResolverInterface
             return false;
         }
 
-        return (new \ReflectionClass($argument->getType()))->implementsInterface(RequestDto::class);
+        return (new ReflectionClass($argument->getType()))->implementsInterface(RequestDto::class);
     }
 
     public function resolve(Request $request, ArgumentMetadata $argument): Generator

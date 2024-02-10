@@ -14,5 +14,7 @@ interface CountryRepositoryInterface
 
     public function remove(Country $review, bool $flush): void;
 
-    public function findOneByIdOrFail(string $id): Country;
+    public function findOneByNameOrFail(string $name): Country;
+
+    public function findOneLikeNameOrFail(string $name): ?Country;
 }

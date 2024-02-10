@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace App\Domain\Model;
 
+use App\Adapter\Database\ORM\Doctrine\Repository\DoctrineUserRepository;
 use App\Domain\Repository\UserRepositoryInterface;
 use App\Domain\Trait\IdentifierTrait;
 use App\Domain\Trait\IsActiveTrait;
 use App\Domain\Trait\TimestampableTrait;
+use App\Domain\Trait\UpdatedByTrait;
+use App\Domain\Trait\WhoTrait;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -18,14 +21,15 @@ use function array_unique;
 use function sha1;
 use function uniqid;
 
-#[ORM\Entity(repositoryClass: UserRepositoryInterface::class)]
+#[ORM\Entity(repositoryClass: DoctrineUserRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+final class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     use IdentifierTrait;
     use TimestampableTrait;
     use IsActiveTrait;
-    public const MIN_AGE = 18;
+    use UpdatedByTrait;
+
     public const NAME_MIN_LENGTH = 2;
     public const NAME_MAX_LENGTH = 80;
 
@@ -46,10 +50,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     ])]
     private ?string $password;
 
-    #[ORM\ManyToOne(targetEntity: Address::class)]
-    #[ORM\JoinColumn(name: 'address_id', referencedColumnName: 'id')]
-    private ?Address $address;
-
     private function __construct(
         ?string $name,
         ?string $email,
@@ -64,11 +64,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->isActive = false;
         $this->createdOn = new DateTimeImmutable();
         $this->markAsUpdated();
+        $this->whoUpdated();
     }
 
     public static function create($name, $email, $password): self
     {
-        return new static(
+        return new User(
             $name,
             $email,
             $password,

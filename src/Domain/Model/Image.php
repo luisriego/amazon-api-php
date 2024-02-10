@@ -6,6 +6,7 @@ namespace App\Domain\Model;
 
 use App\Domain\Repository\ImageRepositoryInterface;
 use App\Domain\Trait\IdentifierTrait;
+use App\Domain\Trait\IsActiveTrait;
 use App\Domain\Trait\TimestampableTrait;
 use App\Domain\Trait\WhoTrait;
 use DateTime;
@@ -14,10 +15,11 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity(repositoryClass: ImageRepositoryInterface::class)]
-class Image
+final class Image
 {
     use IdentifierTrait;
     use TimestampableTrait;
+    use IsActiveTrait;
     use WhoTrait;
 
     #[ORM\Column(type: 'string', length: 255)]
@@ -37,13 +39,16 @@ class Image
         $this->id = Uuid::v4()->toRfc4122();
         $this->url = $url;
         $this->publicCode = $publicCode;
+        $this->isActive = false;
         $this->createdOn = new DateTimeImmutable();
-        $this->updatedOn = new DateTime();
+        $this->whoCreated();
+        $this->markAsUpdated();
+        $this->whoUpdated();
     }
 
     public static function create($url, $publicCode): self
     {
-        return new static(
+        return new Image(
             $url,
             $publicCode,
         );

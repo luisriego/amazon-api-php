@@ -17,7 +17,7 @@ use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity(repositoryClass: ProductRepositoryInterface::class)]
 #[ORM\HasLifecycleCallbacks]
-class Product
+final class Product
 {
     use IdentifierTrait;
     use TimestampableTrait;
@@ -74,7 +74,7 @@ class Product
 
     public static function create($name, $description, $price): self
     {
-        return new static(
+        return new Product(
             $name,
             $description,
             $price,

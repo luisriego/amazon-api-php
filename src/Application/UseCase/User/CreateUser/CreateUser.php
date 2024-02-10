@@ -6,7 +6,7 @@ namespace App\Application\UseCase\User\CreateUser;
 
 use App\Application\UseCase\User\CreateUser\Dto\CreateUserInputDto;
 use App\Application\UseCase\User\CreateUser\Dto\CreateUserOutputDto;
-use App\Domain\Exception\User\UserAlreadyExistsException;
+use App\Domain\Exception\User\CountryAlreadyExistsException;
 use App\Domain\Model\User;
 use App\Domain\Repository\UserRepositoryInterface;
 use App\Domain\Security\PasswordHasherInterface;
@@ -15,14 +15,13 @@ class CreateUser
 {
     public function __construct(
         private readonly UserRepositoryInterface $repository,
-        private readonly PasswordHasherInterface $passwordHasher
-    ) {
-    }
+        private readonly PasswordHasherInterface $passwordHasher,
+    ) {}
 
     public function handle(CreateUserInputDto $inputDto): CreateUserOutputDto
     {
         if (null !== $this->repository->findOneByEmail($inputDto->email)) {
-            throw UserAlreadyExistsException::createFromEmail($inputDto->email);
+            throw CountryAlreadyExistsException::createFromEmail($inputDto->email);
         }
 
         $user = User::create(
@@ -32,7 +31,7 @@ class CreateUser
         );
         $password = $this->passwordHasher->hashPasswordForUser($user, $inputDto->password);
         $user->setPassword($password);
-//        $user->setRoles(['ROLE_SYNDIC']);
+        //        $user->setRoles(['ROLE_SYNDIC']);
 
         $this->repository->save($user, true);
 

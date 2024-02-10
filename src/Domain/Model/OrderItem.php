@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity(repositoryClass: OrderItemRepositoryInterface::class)]
-class OrderItem
+final class OrderItem
 {
     use IdentifierTrait;
     use TimestampableTrait;
@@ -44,7 +44,7 @@ class OrderItem
 
     public static function create($price, $quantity): self
     {
-        return new static(
+        return new OrderItem(
             $price,
             $quantity,
         );
