@@ -9,7 +9,6 @@ use App\Domain\Trait\IdentifierTrait;
 use App\Domain\Trait\IsActiveTrait;
 use App\Domain\Trait\TimestampableTrait;
 use App\Domain\Trait\WhoTrait;
-use DateTime;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
@@ -45,6 +44,11 @@ final class Country
         $this->whoCreated();
         $this->markAsUpdated();
         $this->whoUpdated();
+    }
+
+    public function __toString(): string
+    {
+        return $this->name;
     }
 
     public static function create($name, $iso2, $iso3): self
@@ -84,10 +88,5 @@ final class Country
     public function setIso3(string $iso3): void
     {
         $this->iso3 = $iso3;
-    }
-
-    public function __toString(): string
-    {
-        return $this->name;
     }
 }

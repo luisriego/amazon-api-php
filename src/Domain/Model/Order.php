@@ -50,7 +50,8 @@ class Order
     #[ORM\JoinColumn(name: 'address_id', referencedColumnName: 'id')]
     private ?Address $orderAddress;
 
-    private function __construct() {
+    private function __construct()
+    {
         $this->id = Uuid::v4()->toRfc4122();
         $this->isActive = false;
         $this->createdOn = new DateTimeImmutable();

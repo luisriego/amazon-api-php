@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Application\UseCase\Address\CreateAddress;
 
 use App\Application\UseCase\Address\CreateAddress\Dto\CreateAddressInputDto;
 use App\Application\UseCase\Address\CreateAddress\Dto\CreateAddressOutputDto;
-use App\Domain\Exception\Country\CountryAlreadyExistsException;
 use App\Domain\Exception\ResourceNotFoundException;
 use App\Domain\Model\Address;
 use App\Domain\Model\Country;
@@ -18,10 +19,8 @@ readonly class CreateAddress
     public function __construct(
         private AddressRepositoryInterface $addressRepository,
         private CountryRepositoryInterface $countryRepository,
-        private Security                   $security
-    )
-    {
-    }
+        private Security $security,
+    ) {}
 
     public function handler(CreateAddressInputDto $addressInputDto): CreateAddressOutputDto
     {
@@ -31,7 +30,6 @@ readonly class CreateAddress
         if (null === $country = $this->countryRepository->findOneLikeNameOrFail($addressInputDto->country)) {
             throw ResourceNotFoundException::createFromClassAndName(Country::class, $addressInputDto->country);
         }
-
 
         $address = Address::create(
             $addressInputDto->name,
@@ -47,6 +45,7 @@ readonly class CreateAddress
         );
 
         $this->addressRepository->add($address, true);
+
         return new CreateAddressOutputDto($address->getId());
     }
 }

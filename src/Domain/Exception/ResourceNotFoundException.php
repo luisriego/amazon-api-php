@@ -6,7 +6,6 @@ namespace App\Domain\Exception;
 
 use DomainException;
 
-use Throwable;
 use function sprintf;
 
 final class ResourceNotFoundException extends DomainException

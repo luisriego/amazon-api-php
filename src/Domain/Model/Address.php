@@ -45,7 +45,7 @@ final class Address
     #[ORM\Column(type: 'string', length: 10)]
     private string $zipCode;
 
-    #[ORM\ManyToOne(targetEntity: Country::class, cascade: ['persist'] )]
+    #[ORM\ManyToOne(targetEntity: Country::class, cascade: ['persist'])]
     #[ORM\JoinColumn(name: 'country_id', referencedColumnName: 'id')]
     private ?Country $country;
 
@@ -63,7 +63,7 @@ final class Address
         string $city,
         string $zipCode,
         ?Country $country,
-        User $user
+        User $user,
     ) {
         $this->id = Uuid::v4()->toRfc4122();
         $this->name = $name;
@@ -93,9 +93,8 @@ final class Address
         string $city,
         string $zipCode,
         ?Country $country,
-        User $user
-    ): self
-    {
+        User $user,
+    ): self {
         return new Address(
             $name,
             $number,

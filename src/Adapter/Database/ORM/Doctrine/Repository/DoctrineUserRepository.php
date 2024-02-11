@@ -69,7 +69,7 @@ class DoctrineUserRepository extends BaseRepository implements PasswordUpgraderI
             throw ResourceNotFoundException::createFromClassAndId(User::class, $id);
         }
 
-        /** @var User $user */
+        // @var User $user
         return $user;
     }
 
@@ -87,7 +87,7 @@ class DoctrineUserRepository extends BaseRepository implements PasswordUpgraderI
             throw ResourceNotFoundException::createFromClassAndEmail(User::class, $email);
         }
 
-        /** @var User $user */
+        // @var User $user
         return $user;
     }
 

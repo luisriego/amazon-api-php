@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Adapter\Database\ORM\Doctrine\Repository;
 
 use App\Adapter\Database\ORM\Doctrine\BaseRepository;
@@ -48,8 +50,8 @@ class DoctrineCountryRepository extends BaseRepository implements CountryReposit
         if (null === $country = $this->find($name)) {
             throw ResourceNotFoundException::createFromClassAndName(Country::class, $name);
         }
-        
-        /** @var Country $country */
+
+        // @var Country $country
         return $country;
     }
 
@@ -58,14 +60,12 @@ class DoctrineCountryRepository extends BaseRepository implements CountryReposit
      */
     public function findOneLikeNameOrFail(string $name): ?Country
     {
-        {
-            return $this->createQueryBuilder('c')
-                ->where('c.name LIKE :term')
-                ->orWhere('c.iso2 LIKE :term')
-                ->orWhere('c.iso3 LIKE :term')
-                ->setParameter('term', '%' . $name . '%')
-                ->getQuery()
-                ->getOneOrNullResult();
-        }
+        return $this->createQueryBuilder('c')
+            ->where('c.name LIKE :term')
+            ->orWhere('c.iso2 LIKE :term')
+            ->orWhere('c.iso3 LIKE :term')
+            ->setParameter('term', '%' . $name . '%')
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 }

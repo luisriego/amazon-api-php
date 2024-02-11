@@ -38,7 +38,7 @@ final class ShoppingCartItem
     #[ORM\JoinColumn(name: 'product_id', referencedColumnName: 'id')]
     private ?Product $product;
 
-//    private string $productId;
+    //    private string $productId;
 
     #[ORM\Column(type: 'integer')]
     private int $stock;
@@ -71,7 +71,7 @@ final class ShoppingCartItem
 
     public static function create($product, $quantity, $shoppingCartMasterId, $shoppingCartId): self
     {
-        return new static(
+        return new self(
             $product,
             $quantity,
             $shoppingCartMasterId,
