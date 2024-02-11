@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Application\UseCase\Address\CreateAddress\Dto;
 
-use App\Domain\Model\User;
 use App\Domain\Validation\Traits\AssertNotNullTrait;
 
 final class CreateAddressInputDto
@@ -10,10 +11,10 @@ final class CreateAddressInputDto
     use AssertNotNullTrait;
 
     private const ARGS = [
-        "number",
-        "street",
-        "city",
-        "zipCode",
+        'number',
+        'street',
+        'city',
+        'zipCode',
     ];
 
     public function __construct(
@@ -26,8 +27,7 @@ final class CreateAddressInputDto
         public readonly string $city,
         public readonly string $zipCode,
         public readonly ?string $country,
-    )
-    {
+    ) {
         $this->assertNotNull(self::ARGS, [$this->number, $this->street, $this->city, $this->zipCode]);
     }
 
@@ -40,8 +40,8 @@ final class CreateAddressInputDto
         ?string $neighborhood,
         ?string $city,
         ?string $zipCode,
-        ?string $country): self
-    {
+        ?string $country,
+    ): self {
         return new CreateAddressInputDto($name, $number, $street, $street2, $department, $neighborhood, $city, $zipCode, $country);
     }
 }

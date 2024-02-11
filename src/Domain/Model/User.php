@@ -5,12 +5,10 @@ declare(strict_types=1);
 namespace App\Domain\Model;
 
 use App\Adapter\Database\ORM\Doctrine\Repository\DoctrineUserRepository;
-use App\Domain\Repository\UserRepositoryInterface;
 use App\Domain\Trait\IdentifierTrait;
 use App\Domain\Trait\IsActiveTrait;
 use App\Domain\Trait\TimestampableTrait;
 use App\Domain\Trait\UpdatedByTrait;
-use App\Domain\Trait\WhoTrait;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;

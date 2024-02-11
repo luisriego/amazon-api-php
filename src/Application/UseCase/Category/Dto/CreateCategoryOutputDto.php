@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Application\UseCase\Address\CreateAddress\Dto;
+namespace App\Application\UseCase\Category\Dto;
 
-class CreateAddressOutputDto
+class CreateCategoryOutputDto
 {
     public function __construct(public readonly string $id) {}
 }

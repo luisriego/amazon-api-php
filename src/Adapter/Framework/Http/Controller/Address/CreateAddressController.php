@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Adapter\Framework\Http\Controller\Address;
 
-use App\Adapter\Framework\Http\Dto\Address\CreateAddressRequestDto;
+use App\Adapter\Framework\Http\Dto\Address\CreateCategoryRequestDto;
 use App\Application\UseCase\Address\CreateAddress\CreateAddress;
 use App\Application\UseCase\Address\CreateAddress\Dto\CreateAddressInputDto;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -11,11 +13,10 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class CreateAddressController extends AbstractController
 {
-    public function __construct(private readonly CreateAddress $createAddressService)
-    { }
+    public function __construct(private readonly CreateAddress $createAddressService) {}
 
     #[Route('/api/create-address', 'api_address_create', methods: ['POST'])]
-    public function invoke(CreateAddressRequestDto $requestDto): Response
+    public function invoke(CreateCategoryRequestDto $requestDto): Response
     {
         $responseDto = $this->createAddressService->handler(
             CreateAddressInputDto::create(

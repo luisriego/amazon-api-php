@@ -15,7 +15,7 @@ class CreateUserController extends AbstractController
 {
     public function __construct(private readonly CreateUser $createUserService) {}
 
-    #[Route('/register', name: 'user_create', methods: ['POST'])]
+    #[Route('/register', name: 'api_user_create', methods: ['POST'])]
     public function __invoke(CreateUserRequestDto $request): Response
     {
         $responseDto = $this->createUserService->handle(

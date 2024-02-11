@@ -15,4 +15,6 @@ interface CategoryRepositoryInterface
     public function remove(Category $review, bool $flush): void;
 
     public function findOneByIdOrFail(string $id): Category;
+
+    public function findOneByNameOrFail(string $name): ?Category;
 }

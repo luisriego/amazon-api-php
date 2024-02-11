@@ -50,7 +50,7 @@ class DoctrineProductRepository extends BaseRepository implements ProductReposit
             throw ResourceNotFoundException::createFromClassAndId(Product::class, $id);
         }
 
-        /** @var Product $product */
+        // @var Product $product
         return $product;
     }
 }

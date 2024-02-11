@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Adapter\Framework\Http\Dto\Address;
 
 use App\Adapter\Framework\Http\Dto\RequestDto;
@@ -15,6 +17,7 @@ class CreateAddressRequestDto implements RequestDto
     public ?string $neighborhood;
     public string $city;
     public string $zipCode;
+
     public ?string $country;
 
     public function __construct(Request $request)

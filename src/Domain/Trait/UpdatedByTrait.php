@@ -12,10 +12,10 @@ trait UpdatedByTrait
     #[ORM\Column(type: 'string', length: 50)]
     protected string $updatedBy;
 
-//        public function __construct(
-//            private readonly TokenStorageInterface $tokenStorage
-//        ) {
-//        }
+    //        public function __construct(
+    //            private readonly TokenStorageInterface $tokenStorage
+    //        ) {
+    //        }
 
     public function getUpdatedOBy(): string
     {
@@ -25,7 +25,7 @@ trait UpdatedByTrait
     #[ORM\PrePersist]
     public function whoUpdated(): void
     {
-//        $this->updatedBy = $this->tokenStorage->getToken()->getUser()->getUserIdentifier();
-        $this->updatedBy = "Admin";
+        //        $this->updatedBy = $this->tokenStorage->getToken()->getUser()->getUserIdentifier();
+        $this->updatedBy = 'Admin';
     }
 }
