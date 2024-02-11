@@ -22,7 +22,7 @@ readonly class CreateAddress
         private Security $security,
     ) {}
 
-    public function handler(CreateAddressInputDto $addressInputDto): CreateAddressOutputDto
+    public function handle(CreateAddressInputDto $addressInputDto): CreateAddressOutputDto
     {
         /** @var User $authenticatedUser */
         $authenticatedUser = $this->security->getUser();

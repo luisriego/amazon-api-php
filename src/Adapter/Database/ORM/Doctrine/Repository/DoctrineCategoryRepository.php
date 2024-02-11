@@ -47,7 +47,7 @@ class DoctrineCategoryRepository extends BaseRepository implements CategoryRepos
 
     public function findOneByNameOrFail(string $name): ?Category
     {
-        if (!null === $category = $this->find($name)) {
+        if (null !== $category = $this->findOneBy(['name' => $name])) {
             throw CategoryAlreadyExistsException::createFromName($name);
         }
 
