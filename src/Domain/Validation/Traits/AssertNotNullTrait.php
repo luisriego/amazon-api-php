@@ -18,7 +18,7 @@ trait AssertNotNullTrait
         $emptyValues = [];
 
         foreach ($args as $key => $value) {
-            if (is_null($value)) {
+            if (empty($value)) {
                 $emptyValues[] = $key;
             }
         }
