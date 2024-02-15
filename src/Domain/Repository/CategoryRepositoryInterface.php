@@ -17,4 +17,5 @@ interface CategoryRepositoryInterface
     public function findOneByIdOrFail(string $id): Category;
 
     public function findOneByNameOrFail(string $name): ?Category;
+    public function findOneByName(string $name): ?Category;
 }

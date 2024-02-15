@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Domain\Trait;
 
+use App\Domain\Model\User;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 trait CreatedByTrait
@@ -12,19 +14,22 @@ trait CreatedByTrait
     #[ORM\Column(type: 'string', length: 50)]
     protected string $createdBy;
 
-    //    public function __construct(
-    //        private readonly TokenStorageInterface $tokenStorage,
-    //    ) {}
+        public function __construct(
+            private readonly Security $security,
+        ) {}
 
     public function getCreatedBy(): string
     {
         return $this->createdBy;
     }
 
-    #[ORM\PrePersist]
     public function whoCreated(): void
     {
-        //        $this->createdBy = $this->tokenStorage->getToken()->getUser()->getUserIdentifier();
-        $this->createdBy = 'Admin';
+//        $this->security->getUser()->getUserIdentifier();
+    }
+
+    public function creator(string $creator): void
+    {
+        $this->createdBy = $creator;
     }
 }

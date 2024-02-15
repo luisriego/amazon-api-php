@@ -45,6 +45,11 @@ class DoctrineCategoryRepository extends BaseRepository implements CategoryRepos
         }
     }
 
+    public function findOneByName(string $name): ?Category
+    {
+        return $this->findOneBy(['name' => $name]);
+    }
+
     public function findOneByNameOrFail(string $name): ?Category
     {
         if (null !== $category = $this->findOneBy(['name' => $name])) {

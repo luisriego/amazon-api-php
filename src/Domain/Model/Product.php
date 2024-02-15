@@ -32,7 +32,7 @@ final class Product
     #[ORM\Column(type: 'integer')]
     private int $price;
 
-    #[ORM\Column(type: 'smallint')]
+    #[ORM\Column(type: 'smallint', nullable: true)]
     private ?int $rating = null;
 
     #[ORM\Column(type: 'string', length: 50, nullable: true)]
@@ -67,9 +67,9 @@ final class Product
         $this->reviews = new ArrayCollection();
         $this->status = ProductStatus::Active;
         $this->createdOn = new DateTimeImmutable();
-        $this->whoCreated();
+//        $this->whoCreated();
         $this->markAsUpdated();
-        $this->whoUpdated();
+//        $this->whoUpdated();
     }
 
     public static function create($name, $description, $price): self
@@ -208,5 +208,15 @@ final class Product
     public function getReviews(): Collection
     {
         return $this->reviews;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): void
+    {
+        $this->category = $category;
     }
 }

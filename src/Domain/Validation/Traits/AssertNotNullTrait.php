@@ -7,7 +7,6 @@ namespace App\Domain\Validation\Traits;
 use App\Domain\Exception\InvalidArgumentException;
 
 use function array_combine;
-use function is_null;
 
 trait AssertNotNullTrait
 {
