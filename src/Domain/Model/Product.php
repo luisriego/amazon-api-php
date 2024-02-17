@@ -23,6 +23,8 @@ final class Product
     use TimestampableTrait;
     use WhoTrait;
 
+    public const MIN_ROLE = "ROLE_EMPLOYEE";
+
     #[ORM\Column(type: 'string', length: 100)]
     private string $name;
 

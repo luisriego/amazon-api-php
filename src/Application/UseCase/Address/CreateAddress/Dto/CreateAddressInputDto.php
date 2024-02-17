@@ -15,6 +15,7 @@ final class CreateAddressInputDto
         'street',
         'city',
         'zipCode',
+        'owner',
     ];
 
     public function __construct(
@@ -26,9 +27,10 @@ final class CreateAddressInputDto
         public readonly ?string $neighborhood,
         public readonly string $city,
         public readonly string $zipCode,
-        public readonly ?string $country,
+        public readonly ?int $country,
+        public readonly ?string $owner,
     ) {
-        $this->assertNotNull(self::ARGS, [$this->number, $this->street, $this->city, $this->zipCode]);
+        $this->assertNotNull(self::ARGS, [$this->number, $this->street, $this->city, $this->zipCode, $this->owner]);
     }
 
     public static function create(
@@ -40,8 +42,9 @@ final class CreateAddressInputDto
         ?string $neighborhood,
         ?string $city,
         ?string $zipCode,
-        ?string $country,
+        ?int $country,
+        ?string $owner
     ): self {
-        return new CreateAddressInputDto($name, $number, $street, $street2, $department, $neighborhood, $city, $zipCode, $country);
+        return new CreateAddressInputDto($name, $number, $street, $street2, $department, $neighborhood, $city, $zipCode, $country, $owner);
     }
 }

@@ -4,14 +4,18 @@ declare(strict_types=1);
 
 namespace App\Application\UseCase\Address\CreateAddress;
 
+use _PHPStan_11268e5ee\Symfony\Component\Finder\Exception\AccessDeniedException;
 use App\Application\UseCase\Address\CreateAddress\Dto\CreateAddressInputDto;
 use App\Application\UseCase\Address\CreateAddress\Dto\CreateAddressOutputDto;
 use App\Domain\Exception\ResourceNotFoundException;
+use App\Domain\Exception\Security\CreateResourceDeniedException;
+use App\Domain\Exception\UnableToCreateResourceException;
 use App\Domain\Model\Address;
 use App\Domain\Model\Country;
 use App\Domain\Model\User;
 use App\Domain\Repository\AddressRepositoryInterface;
 use App\Domain\Repository\CountryRepositoryInterface;
+use App\Domain\Repository\UserRepositoryInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 
 readonly class CreateAddress
@@ -19,6 +23,7 @@ readonly class CreateAddress
     public function __construct(
         private AddressRepositoryInterface $addressRepository,
         private CountryRepositoryInterface $countryRepository,
+        private UserRepositoryInterface $userRepository,
         private Security $security,
     ) {}
 
@@ -27,9 +32,14 @@ readonly class CreateAddress
         /** @var User $authenticatedUser */
         $authenticatedUser = $this->security->getUser();
 
-        if (null === $country = $this->countryRepository->findOneLikeNameOrFail($addressInputDto->country)) {
-            throw ResourceNotFoundException::createFromClassAndName(Country::class, $addressInputDto->country);
+        if (null === $owner = $this->userRepository->findOneByIdOrFail($addressInputDto->owner)) {
+            throw ResourceNotFoundException::createFromClassAndId(User::class, $addressInputDto->owner);
         }
+
+        if (null === $country = $this->countryRepository->findOneByIdOrFail($addressInputDto->country)) {
+            throw ResourceNotFoundException::createFromClassAndIntId(Country::class, $addressInputDto->country);
+        }
+
 
         $address = Address::create(
             $addressInputDto->name,
@@ -41,8 +51,13 @@ readonly class CreateAddress
             $addressInputDto->city,
             $addressInputDto->zipCode,
             $country,
+            $owner,
             $authenticatedUser,
         );
+
+        if (!$address->isOwnedBy($authenticatedUser)) {
+            throw CreateResourceDeniedException::deniedByNotBeTheOwner();
+        }
 
         $this->addressRepository->add($address, true);
 

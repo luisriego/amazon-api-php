@@ -16,48 +16,34 @@ use Symfony\Component\Uid\Uuid;
 #[ORM\Entity(repositoryClass: CountryRepositoryInterface::class)]
 final class Country
 {
-    use IdentifierTrait;
-    use TimestampableTrait;
-    use IsActiveTrait;
-    use WhoTrait;
-
-    #[ORM\Column(type: 'string', length: 30)]
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
+    private string $id;
+    #[ORM\Column(type: 'string', length: 80)]
     private string $name;
 
-    #[ORM\Column(type: 'string', length: 5)]
+    #[ORM\Column(type: 'string', length: 2)]
     private string $iso2;
 
-    #[ORM\Column(type: 'string', length: 5)]
+    #[ORM\Column(type: 'string', length: 3)]
     private string $iso3;
 
     private function __construct(
+        string $id,
         string $name,
         string $iso2,
         string $iso3,
     ) {
-        $this->id = Uuid::v4()->toRfc4122();
+        $this->id = $id;
         $this->name = $name;
         $this->iso2 = $iso2;
         $this->iso3 = $iso3;
-        $this->isActive = false;
-        $this->createdOn = new DateTimeImmutable();
-        $this->whoCreated();
-        $this->markAsUpdated();
-        $this->whoUpdated();
     }
 
-    public function __toString(): string
+    public function getId(): string
     {
-        return $this->name;
-    }
-
-    public static function create($name, $iso2, $iso3): self
-    {
-        return new Country(
-            $name,
-            $iso2,
-            $iso3,
-        );
+        return $this->id;
     }
 
     public function getName(): string
@@ -75,18 +61,13 @@ final class Country
         return $this->iso2;
     }
 
-    public function setIso2(string $iso2): void
-    {
-        $this->iso2 = $iso2;
-    }
-
     public function getIso3(): string
     {
         return $this->iso3;
     }
 
-    public function setIso3(string $iso3): void
+    public function __toString(): string
     {
-        $this->iso3 = $iso3;
+        return $this->name;
     }
 }

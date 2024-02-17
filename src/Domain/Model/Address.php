@@ -21,6 +21,8 @@ final class Address
     use IsActiveTrait;
     use WhoTrait;
 
+    public const MIN_ROLE = "ROLE_USER";
+
     #[ORM\Column(type: 'string', length: 50, nullable: true)]
     private ?string $name;
 
@@ -46,12 +48,10 @@ final class Address
     private string $zipCode;
 
     #[ORM\ManyToOne(targetEntity: Country::class, cascade: ['persist'])]
-    #[ORM\JoinColumn(name: 'country_id', referencedColumnName: 'id')]
     private ?Country $country;
 
     #[ORM\ManyToOne(targetEntity: User::class)]
-    #[ORM\JoinColumn(name: 'user_id', referencedColumnName: 'id')]
-    private ?User $user;
+    private ?User $owner;
 
     private function __construct(
         ?string $name,
@@ -63,6 +63,7 @@ final class Address
         string $city,
         string $zipCode,
         ?Country $country,
+        User $owner,
         User $user,
     ) {
         $this->id = Uuid::v4()->toRfc4122();
@@ -75,10 +76,10 @@ final class Address
         $this->city = $city;
         $this->zipCode = $zipCode;
         $this->country = $country;
-        $this->user = $user;
+        $this->owner = $owner;
         $this->isActive = false;
         $this->createdOn = new DateTimeImmutable();
-        $this->whoCreated();
+        $this->creator($user->getUserIdentifier());
         $this->markAsUpdated();
         $this->whoUpdated();
     }
@@ -93,6 +94,7 @@ final class Address
         string $city,
         string $zipCode,
         ?Country $country,
+        User $owner,
         User $user,
     ): self {
         return new Address(
@@ -105,6 +107,7 @@ final class Address
             $city,
             $zipCode,
             $country,
+            $owner,
             $user,
         );
     }
@@ -149,8 +152,18 @@ final class Address
         $this->zipCode = $zipCode;
     }
 
-    public function getUser(): ?User
+    public function getOwner(): ?User
     {
-        return $this->user;
+        return $this->owner;
+    }
+
+    public function isOwnedBy(User $user): bool
+    {
+        return $this->owner->getId() === $user->getId();
+    }
+
+    public function __toString(): string
+    {
+        return $this->name;
     }
 }
