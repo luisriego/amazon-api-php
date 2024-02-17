@@ -23,27 +23,29 @@ final class Category
     use IsActiveTrait;
     use WhoTrait;
 
+    public const MIN_ROLE = "ROLE_ADMIN";
+
     #[ORM\Column(type: 'string', length: 50)]
     private string $name;
 
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: Category::class, orphanRemoval: false)]
     private Collection $products;
 
-    private function __construct(string $name)
+    private function __construct(string $name, User $user)
     {
         $this->id = Uuid::v4()->toRfc4122();
         $this->name = $name;
         $this->products = new ArrayCollection();
         $this->isActive = false;
         $this->createdOn = new DateTimeImmutable();
-        $this->whoCreated();
+        $this->creator($user->getUserIdentifier());
         $this->markAsUpdated();
         $this->whoUpdated();
     }
 
-    public static function create($name): self
+    public static function create($name, $user): self
     {
-        return new Category($name);
+        return new Category($name, $user);
     }
 
     public function getName(): string

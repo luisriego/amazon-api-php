@@ -7,7 +7,6 @@ use App\Application\UseCase\Category\Dto\CreateCategoryInputDto;
 use App\Application\UseCase\Category\Dto\CreateCategoryOutputDto;
 use App\Domain\Model\Category;
 use App\Domain\Repository\CategoryRepositoryInterface;
-use App\Domain\Security\PasswordHasherInterface;
 use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -19,7 +18,6 @@ final class CreateCategoryTest extends TestCase
     ];
 
     private readonly CategoryRepositoryInterface|MockObject $categoryRepository;
-    private readonly PasswordHasherInterface $passwordHasher;
     private readonly CreateCategory $useCase;
 
     /**
@@ -28,8 +26,7 @@ final class CreateCategoryTest extends TestCase
     public function setUp(): void
     {
         $this->categoryRepository = $this->createMock(CategoryRepositoryInterface::class);
-        $this->passwordHasher = $this->createMock(PasswordHasherInterface::class);
-        $this->useCase = new CreateCategory($this->categoryRepository, $this->passwordHasher);
+        $this->useCase = new CreateCategory($this->categoryRepository);
     }
 
     public function testCreateCategory(): void
@@ -37,8 +34,6 @@ final class CreateCategoryTest extends TestCase
         $dto = CreateCategoryInputDto::create(
             self::VALUES['name'],
         );
-
-        $name = self::VALUES['name'];
 
         $this->categoryRepository
             ->expects($this->once())

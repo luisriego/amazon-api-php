@@ -18,7 +18,8 @@ class CreateAddressRequestDto implements RequestDto
     public string $city;
     public string $zipCode;
 
-    public ?string $country;
+    public ?int $country;
+    public ?string $owner;
 
     public function __construct(Request $request)
     {
@@ -31,5 +32,6 @@ class CreateAddressRequestDto implements RequestDto
         $this->city = $request->request->get('city');
         $this->zipCode = $request->request->get('zipCode');
         $this->country = $request->request->get('country');
+        $this->owner = $request->request->get('owner');
     }
 }

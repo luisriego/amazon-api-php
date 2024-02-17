@@ -6,21 +6,26 @@ namespace App\Application\UseCase\Category;
 
 use App\Application\UseCase\Category\Dto\CreateCategoryInputDto;
 use App\Application\UseCase\Category\Dto\CreateCategoryOutputDto;
-use App\Domain\Exception\Category\CategoryAlreadyExistsException;
 use App\Domain\Model\Category;
+use App\Domain\Model\User;
 use App\Domain\Repository\CategoryRepositoryInterface;
+use Symfony\Bundle\SecurityBundle\Security;
 
 readonly class CreateCategory
 {
-    public function __construct(private CategoryRepositoryInterface $categoryRepository) {}
+    public function __construct(
+        private CategoryRepositoryInterface $categoryRepository,
+        private Security $security,
+    ) {}
 
     public function handle(CreateCategoryInputDto $createCategoryInputDto): CreateCategoryOutputDto
     {
-        if (!null === $this->categoryRepository->findOneByNameOrFail($createCategoryInputDto->name)) {
-            throw CategoryAlreadyExistsException::createFromName($createCategoryInputDto->name);
-        }
+        /** @var User $authenticatedUser */
+        $authenticatedUser = $this->security->getUser();
 
-        $category = Category::create($createCategoryInputDto->name);
+        if (null === $category = $this->categoryRepository->findOneByNameOrFail($createCategoryInputDto->name)) {
+            $category = Category::create($createCategoryInputDto->name, $authenticatedUser);
+        }
 
         $this->categoryRepository->add($category, true);
 

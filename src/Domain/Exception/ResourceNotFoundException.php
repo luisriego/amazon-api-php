@@ -24,4 +24,9 @@ final class ResourceNotFoundException extends DomainException
     {
         return new ResourceNotFoundException(sprintf('Resource of type [%s] with Name [%s] not found', $class, $name));
     }
+
+    public static function createFromClassAndIntId(string $class, int $id): self
+    {
+        return new ResourceNotFoundException(sprintf('Resource of type [%s] with ID [%d] not found', $class, $id));
+    }
 }

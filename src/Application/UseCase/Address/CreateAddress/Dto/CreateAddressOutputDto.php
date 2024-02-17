@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Application\UseCase\Address\CreateAddress\Dto;
 
-class CreateAddressOutputDto
+readonly class CreateAddressOutputDto
 {
-    public function __construct(public readonly string $id) {}
+    public function __construct(public string $id) {}
 }

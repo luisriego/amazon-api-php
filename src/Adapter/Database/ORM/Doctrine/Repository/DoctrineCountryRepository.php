@@ -68,4 +68,14 @@ class DoctrineCountryRepository extends BaseRepository implements CountryReposit
             ->getQuery()
             ->getOneOrNullResult();
     }
+
+    public function findOneByIdOrFail(int $id): Country
+    {
+        if (null === $country = $this->find($id)) {
+            throw ResourceNotFoundException::createFromClassAndIntId(Country::class, $id);
+        }
+
+        return $country;
+    }
+
 }

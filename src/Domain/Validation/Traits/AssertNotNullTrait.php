@@ -7,7 +7,6 @@ namespace App\Domain\Validation\Traits;
 use App\Domain\Exception\InvalidArgumentException;
 
 use function array_combine;
-use function is_null;
 
 trait AssertNotNullTrait
 {
@@ -18,7 +17,7 @@ trait AssertNotNullTrait
         $emptyValues = [];
 
         foreach ($args as $key => $value) {
-            if (is_null($value)) {
+            if (empty($value)) {
                 $emptyValues[] = $key;
             }
         }

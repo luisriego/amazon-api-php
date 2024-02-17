@@ -7,9 +7,12 @@ namespace App\Adapter\Framework\Http\Controller\Category;
 use App\Adapter\Framework\Http\Dto\Category\CreateCategoryRequestDto;
 use App\Application\UseCase\Category\CreateCategory;
 use App\Application\UseCase\Category\Dto\CreateCategoryInputDto;
+use App\Domain\Exception\Security\CreateAccessDeniedException;
+use App\Domain\Model\Category;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class CreateCategoryController extends AbstractController
 {
@@ -18,6 +21,10 @@ class CreateCategoryController extends AbstractController
     #[Route('api/create-category', 'api_category_create', methods: ['POST'])]
     public function __invoke(CreateCategoryRequestDto $request): Response
     {
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            throw CreateAccessDeniedException::deniedByUnauthorizedRoleFromClassAndRole("Category", Category::MIN_ROLE);
+        }
+
         $responseDto = $this->createCategoryService->handle(
             CreateCategoryInputDto::create(
                 $request->name,
