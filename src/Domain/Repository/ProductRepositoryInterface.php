@@ -16,5 +16,6 @@ interface ProductRepositoryInterface
     public function remove(Product $product, bool $flush): void;
 
     public function findOneByIdOrFail(string $id): Product;
+
     public function findOneRepeated(string $name, int $price, Category $category): ?Product;
 }

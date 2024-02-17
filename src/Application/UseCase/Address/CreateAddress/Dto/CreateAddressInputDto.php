@@ -43,7 +43,7 @@ final class CreateAddressInputDto
         ?string $city,
         ?string $zipCode,
         ?int $country,
-        ?string $owner
+        ?string $owner,
     ): self {
         return new CreateAddressInputDto($name, $number, $street, $street2, $department, $neighborhood, $city, $zipCode, $country, $owner);
     }

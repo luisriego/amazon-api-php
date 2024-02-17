@@ -23,7 +23,7 @@ final class Category
     use IsActiveTrait;
     use WhoTrait;
 
-    public const MIN_ROLE = "ROLE_ADMIN";
+    public const MIN_ROLE = 'ROLE_ADMIN';
 
     #[ORM\Column(type: 'string', length: 50)]
     private string $name;

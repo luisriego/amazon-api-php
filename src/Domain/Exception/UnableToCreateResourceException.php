@@ -14,6 +14,7 @@ final class UnableToCreateResourceException extends DomainException
     {
         return new UnableToCreateResourceException(sprintf('Cannot be created resource of type [%s] ', $class));
     }
+
     public static function createFromClassAndId(string $class, string $id): self
     {
         return new UnableToCreateResourceException(sprintf('Resource of type [%s] with ID [%s] not found', $class, $id));

@@ -12,6 +12,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
+use function sprintf;
+
 class CreateAddressController extends AbstractController
 {
     public function __construct(private readonly CreateAddress $createAddressService) {}
@@ -23,8 +25,8 @@ class CreateAddressController extends AbstractController
         $this->denyAccessUnlessGranted(
             Address::MIN_ROLE,
             null,
-            sprintf('Only user with [%s] or greater can create this type of resource.' ,Address::MIN_ROLE));
-
+            sprintf('Only user with [%s] or greater can create this type of resource.', Address::MIN_ROLE),
+        );
 
         $responseDto = $this->createAddressService->handle(
             CreateAddressInputDto::create(
