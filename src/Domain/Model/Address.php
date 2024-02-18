@@ -21,7 +21,7 @@ final class Address
     use IsActiveTrait;
     use WhoTrait;
 
-    public const MIN_ROLE = "ROLE_USER";
+    public const MIN_ROLE = 'ROLE_USER';
 
     #[ORM\Column(type: 'string', length: 50, nullable: true)]
     private ?string $name;
@@ -82,6 +82,11 @@ final class Address
         $this->creator($user->getUserIdentifier());
         $this->markAsUpdated();
         $this->whoUpdated();
+    }
+
+    public function __toString(): string
+    {
+        return $this->name;
     }
 
     public static function create(
@@ -160,10 +165,5 @@ final class Address
     public function isOwnedBy(User $user): bool
     {
         return $this->owner->getId() === $user->getId();
-    }
-
-    public function __toString(): string
-    {
-        return $this->name;
     }
 }

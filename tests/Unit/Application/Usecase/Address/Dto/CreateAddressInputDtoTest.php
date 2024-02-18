@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Application\Usecase\Address\Dto;
 
-use App\Application\UseCase\Address\CreateAddress\Dto\CreateAddressInputDto;
+use App\Application\UseCase\Address\CreateAddress\Dto\CreateImageInputDto;
 use PHPUnit\Framework\TestCase;
 
 class CreateAddressInputDtoTest extends TestCase
@@ -21,7 +21,7 @@ class CreateAddressInputDtoTest extends TestCase
 
     public function testCreate(): void
     {
-        $dto = CreateAddressInputDto::create(
+        $dto = CreateImageInputDto::create(
             self::VALUES['name'],
             self::VALUES['number'],
             self::VALUES['street'],
@@ -33,7 +33,7 @@ class CreateAddressInputDtoTest extends TestCase
             self::VALUES['country'],
         );
 
-        self::assertInstanceOf(CreateAddressInputDto::class, $dto);
+        self::assertInstanceOf(CreateImageInputDto::class, $dto);
 
         self::assertEquals(self::VALUES['name'], $dto->name);
         self::assertEquals(self::VALUES['number'], $dto->number);

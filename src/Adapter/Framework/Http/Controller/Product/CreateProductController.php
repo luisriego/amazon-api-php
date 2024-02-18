@@ -7,12 +7,12 @@ namespace App\Adapter\Framework\Http\Controller\Product;
 use App\Adapter\Framework\Http\Dto\Product\CreateProductRequestDto;
 use App\Application\UseCase\Product\CreateProduct\CreateProduct;
 use App\Application\UseCase\Product\CreateProduct\Dto\CreateProductInputDto;
-use App\Domain\Exception\Security\CreateAccessDeniedException;
 use App\Domain\Model\Product;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
+
+use function sprintf;
 
 class CreateProductController extends AbstractController
 {
@@ -24,7 +24,8 @@ class CreateProductController extends AbstractController
         $this->denyAccessUnlessGranted(
             Product::MIN_ROLE,
             null,
-            sprintf('Only user with [%s] or greater can create this type of resource.' ,Product::MIN_ROLE));
+            sprintf('Only user with [%s] or greater can create this type of resource.', Product::MIN_ROLE),
+        );
 
         $responseDto = $this->createProductService->handle(
             CreateProductInputDto::create(

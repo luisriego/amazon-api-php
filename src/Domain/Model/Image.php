@@ -21,6 +21,8 @@ final class Image
     use IsActiveTrait;
     use WhoTrait;
 
+    public const MIN_ROLE = 'ROLE_EMPLOYEE';
+
     #[ORM\Column(type: 'string', length: 255)]
     private string $url;
 
@@ -34,22 +36,27 @@ final class Image
     private function __construct(
         string $url,
         string $publicCode,
+        Product $product,
+        User $user,
     ) {
         $this->id = Uuid::v4()->toRfc4122();
         $this->url = $url;
         $this->publicCode = $publicCode;
+        $this->product = $product;
         $this->isActive = false;
         $this->createdOn = new DateTimeImmutable();
-        $this->whoCreated();
+        $this->creator($user->getUserIdentifier());
         $this->markAsUpdated();
         $this->whoUpdated();
     }
 
-    public static function create($url, $publicCode): self
+    public static function create($url, $publicCode, $product, $user): self
     {
         return new Image(
             $url,
             $publicCode,
+            $product,
+            $user,
         );
     }
 

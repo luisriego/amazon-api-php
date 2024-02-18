@@ -8,7 +8,6 @@ use App\Application\UseCase\Product\CreateProduct\Dto\CreateProductInputDto;
 use App\Application\UseCase\Product\CreateProduct\Dto\CreateProductOutputDto;
 use App\Domain\Exception\ResourceNotFoundException;
 use App\Domain\Exception\UnableToCreateResourceException;
-use App\Domain\Exception\User\ResourceAlreadyCreatedException;
 use App\Domain\Model\Category;
 use App\Domain\Model\Product;
 use App\Domain\Model\User;
@@ -19,9 +18,9 @@ use Symfony\Bundle\SecurityBundle\Security;
 readonly class CreateProduct
 {
     public function __construct(
-        private ProductRepositoryInterface  $productRepository,
+        private ProductRepositoryInterface $productRepository,
         private CategoryRepositoryInterface $categoryRepository,
-        private Security                    $security,
+        private Security $security,
     ) {}
 
     public function handle(CreateProductInputDto $createProductInputDto): CreateProductOutputDto
@@ -29,14 +28,16 @@ readonly class CreateProduct
         /** @var User $authenticatedUser */
         $authenticatedUser = $this->security->getUser();
 
-        if (null === $category = $this->categoryRepository->findOneByName($createProductInputDto->category)) {
-            throw ResourceNotFoundException::createFromClassAndName(Category::class, $createProductInputDto->category);
+
+        if (null === $category = $this->categoryRepository->findOneByIdOrFail($createProductInputDto->category)) {
+            throw ResourceNotFoundException::createFromClassAndId(Category::class, $createProductInputDto->category);
         }
 
         if (null === $product = Product::create(
             $createProductInputDto->name,
             $createProductInputDto->description,
-            intval($createProductInputDto->price))
+            (int) $createProductInputDto->price,
+        )
         ) {
             throw UnableToCreateResourceException::fromNamedConstructor(Product::class);
         }

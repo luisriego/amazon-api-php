@@ -23,7 +23,7 @@ final class Product
     use TimestampableTrait;
     use WhoTrait;
 
-    public const MIN_ROLE = "ROLE_EMPLOYEE";
+    public const MIN_ROLE = 'ROLE_EMPLOYEE';
 
     #[ORM\Column(type: 'string', length: 100)]
     private string $name;
@@ -69,9 +69,9 @@ final class Product
         $this->reviews = new ArrayCollection();
         $this->status = ProductStatus::Active;
         $this->createdOn = new DateTimeImmutable();
-//        $this->whoCreated();
+        //        $this->whoCreated();
         $this->markAsUpdated();
-//        $this->whoUpdated();
+        //        $this->whoUpdated();
     }
 
     public static function create($name, $description, $price): self
