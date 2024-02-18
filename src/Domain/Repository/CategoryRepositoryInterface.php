@@ -8,11 +8,11 @@ use App\Domain\Model\Category;
 
 interface CategoryRepositoryInterface
 {
-    public function add(Category $review, bool $flush): void;
+    public function add(Category $category, bool $flush): void;
 
-    public function save(Category $review, bool $flush): void;
+    public function save(Category $category, bool $flush): void;
 
-    public function remove(Category $review, bool $flush): void;
+    public function remove(Category $category, bool $flush): void;
 
     public function findOneByIdOrFail(string $id): Category;
 

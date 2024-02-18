@@ -8,11 +8,11 @@ use App\Domain\Model\Country;
 
 interface CountryRepositoryInterface
 {
-    public function add(Country $review, bool $flush): void;
+    public function add(Country $country, bool $flush): void;
 
-    public function save(Country $review, bool $flush): void;
+    public function save(Country $country, bool $flush): void;
 
-    public function remove(Country $review, bool $flush): void;
+    public function remove(Country $country, bool $flush): void;
 
     public function findOneByIdOrFail(int $id): Country;
 

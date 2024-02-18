@@ -20,10 +20,12 @@ final class Review
     use TimestampableTrait;
     use WhoTrait;
 
+    public const MIN_ROLE = 'ROLE_USER';
+
     #[ORM\Column(type: 'string', length: 50)]
     private string $name;
 
-    #[ORM\Column(type: 'string', length: 400)]
+    #[ORM\Column(type: 'text')]
     private string $comment;
 
     #[ORM\Column(type: 'smallint')]
@@ -33,25 +35,36 @@ final class Review
     #[ORM\JoinColumn(nullable: false)]
     private ?Product $product;
 
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    private ?User $owner;
+
     private function __construct(
         string $name,
         string $comment,
         int $rating,
+        Product $product,
+        User $user,
     ) {
         $this->id = Uuid::v4()->toRfc4122();
         $this->name = $name;
         $this->comment = $comment;
         $this->rating = $rating;
+        $this->product = $product;
+        $this->owner = $user;
         $this->createdOn = new DateTimeImmutable();
-        $this->updatedOn =  new DateTime();
+        $this->creator($user->getUserIdentifier());
+        $this->markAsUpdated();
+        $this->whoUpdated();
     }
 
-    public static function create($name, $comment, $rating): self
+    public static function create($name, $comment, $rating, $product, $user): self
     {
         return new Review(
             $name,
             $comment,
             $rating,
+            $product,
+            $user,
         );
     }
 
@@ -93,5 +106,15 @@ final class Review
     public function setProduct(?Product $product): void
     {
         $this->product = $product;
+    }
+
+    public function getOwner(): ?User
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(?User $owner): void
+    {
+        $this->owner = $owner;
     }
 }

@@ -8,11 +8,11 @@ use App\Domain\Model\ShoppingCartItem;
 
 interface ShoppingCartItemRepositoryInterface
 {
-    public function add(ShoppingCartItem $review, bool $flush): void;
+    public function add(ShoppingCartItem $shoppingCartItem, bool $flush): void;
 
-    public function save(ShoppingCartItem $review, bool $flush): void;
+    public function save(ShoppingCartItem $shoppingCartItem, bool $flush): void;
 
-    public function remove(ShoppingCartItem $review, bool $flush): void;
+    public function remove(ShoppingCartItem $shoppingCartItem, bool $flush): void;
 
     public function findOneByIdOrFail(string $id): ShoppingCartItem;
 }
