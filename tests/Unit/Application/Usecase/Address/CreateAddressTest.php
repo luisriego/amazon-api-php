@@ -3,7 +3,7 @@
 namespace Tests\Unit\Application\Usecase\Address;
 
 use App\Application\UseCase\Address\CreateAddress\CreateAddress;
-use App\Application\UseCase\Address\CreateAddress\Dto\CreateAddressInputDto;
+use App\Application\UseCase\Address\CreateAddress\Dto\CreateImageInputDto;
 use App\Domain\Model\Address;
 use App\Domain\Repository\AddressRepositoryInterface;
 use App\Domain\Repository\CountryRepositoryInterface;
@@ -45,7 +45,7 @@ class CreateAddressTest extends TestCase
 
     public function testCreateAddress(): void
     {
-        $dto = CreateAddressInputDto::create(
+        $dto = CreateImageInputDto::create(
             self::VALUES['name'],
             self::VALUES['number'],
             self::VALUES['street'],

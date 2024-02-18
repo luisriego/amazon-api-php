@@ -1,11 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Adapter\Framework\Security;
 
 use App\Domain\Model\Address;
-use App\Domain\Model\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
+
+use function in_array;
 
 class AddressVoter extends Voter
 {
@@ -16,7 +19,7 @@ class AddressVoter extends Voter
 
     protected function supports(string $attribute, mixed $subject): bool
     {
-        return \in_array($attribute, $this->supportedAttributes(), true)
+        return in_array($attribute, $this->supportedAttributes(), true)
             && $subject instanceof Address;
     }
 
@@ -26,7 +29,7 @@ class AddressVoter extends Voter
             return true;
         }
 
-        if (\in_array($attribute, [self::GROUP_READ, self::GROUP_UPDATE, self::GROUP_DELETE], true)) {
+        if (in_array($attribute, [self::GROUP_READ, self::GROUP_UPDATE, self::GROUP_DELETE], true)) {
             return $subject->isOwnedBy($token->getUser());
         }
 

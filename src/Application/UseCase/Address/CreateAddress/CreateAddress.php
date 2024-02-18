@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace App\Application\UseCase\Address\CreateAddress;
 
-use _PHPStan_11268e5ee\Symfony\Component\Finder\Exception\AccessDeniedException;
 use App\Application\UseCase\Address\CreateAddress\Dto\CreateAddressInputDto;
 use App\Application\UseCase\Address\CreateAddress\Dto\CreateAddressOutputDto;
 use App\Domain\Exception\ResourceNotFoundException;
 use App\Domain\Exception\Security\CreateResourceDeniedException;
-use App\Domain\Exception\UnableToCreateResourceException;
 use App\Domain\Model\Address;
 use App\Domain\Model\Country;
 use App\Domain\Model\User;
@@ -39,7 +37,6 @@ readonly class CreateAddress
         if (null === $country = $this->countryRepository->findOneByIdOrFail($addressInputDto->country)) {
             throw ResourceNotFoundException::createFromClassAndIntId(Country::class, $addressInputDto->country);
         }
-
 
         $address = Address::create(
             $addressInputDto->name,

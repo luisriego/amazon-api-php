@@ -16,14 +16,14 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity(repositoryClass: CategoryRepositoryInterface::class)]
-final class Category
+class Category
 {
     use IdentifierTrait;
     use TimestampableTrait;
     use IsActiveTrait;
     use WhoTrait;
 
-    public const MIN_ROLE = "ROLE_ADMIN";
+    public const MIN_ROLE = 'ROLE_ADMIN';
 
     #[ORM\Column(type: 'string', length: 50)]
     private string $name;

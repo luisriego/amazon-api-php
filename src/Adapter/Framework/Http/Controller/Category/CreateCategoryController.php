@@ -12,7 +12,6 @@ use App\Domain\Model\Category;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class CreateCategoryController extends AbstractController
 {
@@ -22,7 +21,7 @@ class CreateCategoryController extends AbstractController
     public function __invoke(CreateCategoryRequestDto $request): Response
     {
         if (!$this->isGranted('ROLE_ADMIN')) {
-            throw CreateAccessDeniedException::deniedByUnauthorizedRoleFromClassAndRole("Category", Category::MIN_ROLE);
+            throw CreateAccessDeniedException::deniedByUnauthorizedRoleFromClassAndRole('Category', Category::MIN_ROLE);
         }
 
         $responseDto = $this->createCategoryService->handle(

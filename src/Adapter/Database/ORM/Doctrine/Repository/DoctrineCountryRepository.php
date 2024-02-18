@@ -77,5 +77,4 @@ class DoctrineCountryRepository extends BaseRepository implements CountryReposit
 
         return $country;
     }
-
 }

@@ -5,13 +5,7 @@ declare(strict_types=1);
 namespace App\Domain\Model;
 
 use App\Domain\Repository\CountryRepositoryInterface;
-use App\Domain\Trait\IdentifierTrait;
-use App\Domain\Trait\IsActiveTrait;
-use App\Domain\Trait\TimestampableTrait;
-use App\Domain\Trait\WhoTrait;
-use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity(repositoryClass: CountryRepositoryInterface::class)]
 final class Country
@@ -41,6 +35,11 @@ final class Country
         $this->iso3 = $iso3;
     }
 
+    public function __toString(): string
+    {
+        return $this->name;
+    }
+
     public function getId(): string
     {
         return $this->id;
@@ -64,10 +63,5 @@ final class Country
     public function getIso3(): string
     {
         return $this->iso3;
-    }
-
-    public function __toString(): string
-    {
-        return $this->name;
     }
 }

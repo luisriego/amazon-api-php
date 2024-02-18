@@ -17,6 +17,6 @@ final class CreateResourceDeniedException extends DomainException
 
     public static function deniedByUnauthorizedRoleFromClassAndRole(string $class, string $role): self
     {
-        return new CreateResourceDeniedException(sprintf('Only user with [%s] or greater can create resources of type [%s].' ,$role, $class));
+        return new CreateResourceDeniedException(sprintf('Only user with [%s] or greater can create resources of type [%s].', $role, $class));
     }
 }
