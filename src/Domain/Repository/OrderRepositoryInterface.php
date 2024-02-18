@@ -8,11 +8,11 @@ use App\Domain\Model\Order;
 
 interface OrderRepositoryInterface
 {
-    public function add(Order $review, bool $flush): void;
+    public function add(Order $order, bool $flush): void;
 
-    public function save(Order $review, bool $flush): void;
+    public function save(Order $order, bool $flush): void;
 
-    public function remove(Order $review, bool $flush): void;
+    public function remove(Order $order, bool $flush): void;
 
     public function findOneByIdOrFail(string $id): Order;
 }
