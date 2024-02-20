@@ -21,7 +21,7 @@ use function uniqid;
 
 #[ORM\Entity(repositoryClass: DoctrineUserRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-final class User implements UserInterface, PasswordAuthenticatedUserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     use IdentifierTrait;
     use TimestampableTrait;

@@ -5,22 +5,26 @@ declare(strict_types=1);
 namespace App\Domain\Model;
 
 use App\Domain\Enums\OrderStatus;
-use App\Domain\Repository\OrderRepositoryInterface;
+use App\Domain\Repository\OrdenRepositoryInterface;
 use App\Domain\Trait\IdentifierTrait;
 use App\Domain\Trait\IsActiveTrait;
 use App\Domain\Trait\TimestampableTrait;
 use App\Domain\Trait\WhoTrait;
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 
-#[ORM\Entity(repositoryClass: OrderRepositoryInterface::class)]
-class Order
+#[ORM\Entity(repositoryClass: OrdenRepositoryInterface::class)]
+final class Orden
 {
     use IdentifierTrait;
     use TimestampableTrait;
     use WhoTrait;
     use IsActiveTrait;
+
+    public const MIN_ROLE = 'ROLE_USER';
 
     #[ORM\Column(type: 'integer')]
     private int $subtotal;
@@ -47,17 +51,37 @@ class Order
     private OrderStatus $status = OrderStatus::Pending;
 
     #[ORM\OneToOne(targetEntity: Address::class)]
-    #[ORM\JoinColumn(name: 'address_id', referencedColumnName: 'id')]
     private ?Address $orderAddress;
 
-    private function __construct()
+    #[ORM\OneToMany(mappedBy: 'Order', targetEntity: OrderItem::class)]
+    private Collection $orderItems;
+
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    private ?User $owner;
+
+    private function __construct(User $owner, Address $orderAddress)
     {
         $this->id = Uuid::v4()->toRfc4122();
+        $this->owner = $owner;
+        $this->$orderAddress = $orderAddress;
+        $this->subtotal = 0;
+        $this->total = 0;
+        $this->tax = 0;
+        $this->shippingPrice = 0;
+        $this->paymentIntentId = "";
+        $this->clientSecret = "";
+        $this->stripeApiKey = "";
+        $this->orderItems = new ArrayCollection();
         $this->isActive = false;
         $this->createdOn = new DateTimeImmutable();
-        $this->whoCreated();
+        $this->creator($owner->getUserIdentifier());
         $this->markAsUpdated();
         $this->whoUpdated();
+    }
+
+    public static function create($owner, $orderAddress): self
+    {
+        return new Orden($owner, $orderAddress);
     }
 
     public function getSubtotal(): int
@@ -148,5 +172,15 @@ class Order
     public function setStatus(OrderStatus $status): void
     {
         $this->status = $status;
+    }
+
+    public function getOwner(): ?User
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(?User $owner): void
+    {
+        $this->owner = $owner;
     }
 }

@@ -15,7 +15,7 @@ class CreateReviewController extends AbstractController
     public function __construct(private readonly CreateReview $createReview)
     { }
 
-    #[Route('/api/create-review', 'api_create_review', methods: ['POST'])]
+    #[Route('/api/create-review', 'api_review_create', methods: ['POST'])]
     public function __invoke(CreateReviewRequestDto $requestDto): Response
     {
         $this->denyAccessUnlessGranted(

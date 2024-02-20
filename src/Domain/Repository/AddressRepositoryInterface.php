@@ -14,5 +14,7 @@ interface AddressRepositoryInterface
 
     public function remove(Address $address, bool $flush): void;
 
-    public function findOneByStreetOrFail(string $id): Address;
+    public function findOneByIdOrFail(string $id): Address;
+
+    public function findOneByStreetOrFail(string $street): Address;
 }
