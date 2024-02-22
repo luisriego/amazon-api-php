@@ -8,7 +8,6 @@ use App\Domain\Repository\ReviewRepositoryInterface;
 use App\Domain\Trait\IdentifierTrait;
 use App\Domain\Trait\TimestampableTrait;
 use App\Domain\Trait\WhoTrait;
-use DateTime;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;

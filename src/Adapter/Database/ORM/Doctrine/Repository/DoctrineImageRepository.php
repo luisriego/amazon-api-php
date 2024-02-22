@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Adapter\Database\ORM\Doctrine\Repository;
 
 use App\Adapter\Database\ORM\Doctrine\BaseRepository;
@@ -28,9 +30,9 @@ class DoctrineImageRepository extends BaseRepository implements ImageRepositoryI
     {
         $this->getEntityManager()->persist($image);
 
-         if ($flush) {
-             $this->getEntityManager()->flush();
-         }
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
     }
 
     public function remove(Image $image, bool $flush): void

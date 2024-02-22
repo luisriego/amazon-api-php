@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Application\UseCase\Review\CreateReview;
 
 use App\Application\UseCase\Review\CreateReview\Dto\CreateReviewInputDto;
@@ -9,7 +11,6 @@ use App\Domain\Model\Review;
 use App\Domain\Model\User;
 use App\Domain\Repository\ProductRepositoryInterface;
 use App\Domain\Repository\ReviewRepositoryInterface;
-use App\Domain\Repository\UserRepositoryInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 
 class CreateReview
@@ -18,8 +19,7 @@ class CreateReview
         private readonly ReviewRepositoryInterface $reviewRepository,
         private readonly ProductRepositoryInterface $productRepository,
         private readonly Security $security,
-    )
-    { }
+    ) {}
 
     public function handle(CreateReviewInputDto $inputDto): CreateReviewOutputDto
     {
@@ -33,9 +33,9 @@ class CreateReview
         $review = Review::create(
             $inputDto->name,
             $inputDto->comment,
-            intval($inputDto->rating),
+            (int) $inputDto->rating,
             $product,
-            $authenticatedUser
+            $authenticatedUser,
         );
 
         $this->reviewRepository->add($review, true);

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Adapter\Framework\Http\Controller\Image;
 
 use App\Adapter\Framework\Http\Dto\Image\CreateImageRequestDto;
@@ -10,11 +12,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
+use function sprintf;
+
 class CreateImageController extends AbstractController
 {
     public function __construct(
         private readonly CreateImage $createImage,
-    ) { }
+    ) {}
 
     #[Route('api/create-image', 'api_image_create', methods: ['POST'])]
     public function __invoke(CreateImageRequestDto $requestDto): Response
@@ -30,7 +34,7 @@ class CreateImageController extends AbstractController
                 $requestDto->url,
                 $requestDto->publicCode,
                 $requestDto->product,
-            )
+            ),
         );
 
         return $this->json(['imageId' => $responseDto->id], Response::HTTP_CREATED);

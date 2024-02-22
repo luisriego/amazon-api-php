@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Application\UseCase\Review\CreateReview\Dto;
+declare(strict_types=1);
 
+namespace App\Application\UseCase\Review\CreateReview\Dto;
 
 use App\Domain\Validation\Traits\AssertNotNullTrait;
 
@@ -24,7 +25,7 @@ final class CreateReviewInputDto
     ) {
         $this->assertNotNull(
             self::ARGS,
-            [$this->name, $this->comment, $this->rating, $this->product]
+            [$this->name, $this->comment, $this->rating, $this->product],
         );
     }
 

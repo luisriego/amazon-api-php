@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Application\UseCase\Image\CreateImage;
 
 use App\Application\UseCase\Image\CreateImage\Dto\CreateImageInputDto;
@@ -15,10 +17,10 @@ use Symfony\Bundle\SecurityBundle\Security;
 readonly class CreateImage
 {
     public function __construct(
-        private ImageRepositoryInterface   $imageRepository,
+        private ImageRepositoryInterface $imageRepository,
         private ProductRepositoryInterface $productRepository,
-        private Security                   $security,
-    ) { }
+        private Security $security,
+    ) {}
 
     public function handle(CreateImageInputDto $inputDto): CreateImageOutputDto
     {

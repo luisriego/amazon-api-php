@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Adapter\Framework\Http\Controller\Review;
 
 use App\Adapter\Framework\Http\Dto\Review\CreateReviewRequestDto;
@@ -10,10 +12,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
+use function sprintf;
+
 class CreateReviewController extends AbstractController
 {
-    public function __construct(private readonly CreateReview $createReview)
-    { }
+    public function __construct(private readonly CreateReview $createReview) {}
 
     #[Route('/api/create-review', 'api_create_review', methods: ['POST'])]
     public function __invoke(CreateReviewRequestDto $requestDto): Response
@@ -30,7 +33,7 @@ class CreateReviewController extends AbstractController
                 $requestDto->comment,
                 $requestDto->rating,
                 $requestDto->product,
-            )
+            ),
         );
 
         return $this->json(['reviewId' => $responseDto->id], Response::HTTP_CREATED);

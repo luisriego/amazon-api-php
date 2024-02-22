@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Adapter\Database\ORM\Doctrine\Repository;
 
 use App\Adapter\Database\ORM\Doctrine\BaseRepository;
@@ -28,9 +30,9 @@ class DoctrineReviewRepository extends BaseRepository implements ReviewRepositor
     {
         $this->getEntityManager()->persist($review);
 
-         if ($flush) {
-             $this->getEntityManager()->flush();
-         }
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
     }
 
     public function remove(Review $review, bool $flush): void
