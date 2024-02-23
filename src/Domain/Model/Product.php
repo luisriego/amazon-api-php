@@ -25,6 +25,9 @@ final class Product
 
     public const MIN_ROLE = 'ROLE_EMPLOYEE';
 
+    #[ORM\Column(type: 'string', length: 12)]
+    private string $sku;
+
     #[ORM\Column(type: 'string', length: 100)]
     private string $name;
 
@@ -56,11 +59,14 @@ final class Product
     private Collection $reviews;
 
     private function __construct(
+        string $sku,
         string $name,
         string $description,
         int $price,
+        $user,
     ) {
         $this->id = Uuid::v4()->toRfc4122();
+        $this->sku = $sku;
         $this->name = $name;
         $this->description = $description;
         $this->price = $price;
@@ -69,18 +75,25 @@ final class Product
         $this->reviews = new ArrayCollection();
         $this->status = ProductStatus::Active;
         $this->createdOn = new DateTimeImmutable();
-        //        $this->whoCreated();
+        $this->creator($user->getUserIdentifier());
         $this->markAsUpdated();
-        //        $this->whoUpdated();
+        $this->whoUpdated();
     }
 
-    public static function create($name, $description, $price): self
+    public static function create($sku, $name, $description, $price, $user): self
     {
         return new Product(
+            $sku,
             $name,
             $description,
             $price,
+            $user,
         );
+    }
+
+    public function getSku(): string
+    {
+        return $this->sku;
     }
 
     public function getName(): string
