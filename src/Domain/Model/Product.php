@@ -25,7 +25,7 @@ final class Product
 
     public const MIN_ROLE = 'ROLE_EMPLOYEE';
 
-    #[ORM\Column(type: 'string', length: 12)]
+    #[ORM\Column(type: 'string', length: 64, nullable: true)]
     private string $sku;
 
     #[ORM\Column(type: 'string', length: 100)]
