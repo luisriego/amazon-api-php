@@ -8,7 +8,7 @@ use App\Domain\Repository\CountryRepositoryInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CountryRepositoryInterface::class)]
-final class Country
+class Country
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

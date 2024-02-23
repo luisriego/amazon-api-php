@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity(repositoryClass: AddressRepositoryInterface::class)]
-final class Address
+class Address
 {
     use IdentifierTrait;
     use TimestampableTrait;
@@ -86,7 +86,7 @@ final class Address
 
     public function __toString(): string
     {
-        return $this->name;
+        return $this->getId();
     }
 
     public static function create(
