@@ -3,10 +3,11 @@
 namespace Tests\Unit\Application\Usecase\Address;
 
 use App\Application\UseCase\Address\CreateAddress\CreateAddress;
-use App\Application\UseCase\Address\CreateAddress\Dto\CreateImageInputDto;
+use App\Application\UseCase\Image\CreateImage\Dto\CreateImageInputDto;
 use App\Domain\Model\Address;
 use App\Domain\Repository\AddressRepositoryInterface;
 use App\Domain\Repository\CountryRepositoryInterface;
+use App\Domain\Repository\UserRepositoryInterface;
 use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -27,7 +28,7 @@ class CreateAddressTest extends TestCase
     ];
 
     private readonly AddressRepositoryInterface|MockObject $addressRepository;
-    private readonly CountryRepositoryInterface|MockObject $countryRepository;
+    private readonly UserRepositoryInterface|MockObject $userRepository;
     private readonly Security|MockObject $security;
     private readonly CreateAddress $useCase;
 
@@ -38,9 +39,9 @@ class CreateAddressTest extends TestCase
     public function setUp(): void
     {
         $this->addressRepository = $this->createMock(AddressRepositoryInterface::class);
-        $this->countryRepository = $this->createMock(CountryRepositoryInterface::class);
+        $countryRepository = $this->createMock(CountryRepositoryInterface::class);
         $this->security = $this->createMock(Security::class);
-        $this->useCase = new CreateAddress($this->addressRepository, $this->countryRepository, $this->security);
+        $this->useCase = new CreateAddress($this->addressRepository, $countryRepository, $this->userRepository, $this->security);
     }
 
     public function testCreateAddress(): void

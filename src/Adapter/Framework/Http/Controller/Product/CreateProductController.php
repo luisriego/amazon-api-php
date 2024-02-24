@@ -29,10 +29,12 @@ class CreateProductController extends AbstractController
 
         $responseDto = $this->createProductService->handle(
             CreateProductInputDto::create(
+                $requestDto->sku,
                 $requestDto->name,
                 $requestDto->description,
                 $requestDto->price,
                 $requestDto->category,
+                $requestDto->user,
             ),
         );
 

@@ -63,13 +63,15 @@ final class Product
         string $name,
         string $description,
         int $price,
-        $user,
+        Category $category,
+        User $user,
     ) {
         $this->id = Uuid::v4()->toRfc4122();
         $this->sku = $sku;
         $this->name = $name;
         $this->description = $description;
         $this->price = $price;
+        $this->category = $category;
         $this->stock = 0;
         $this->images = new ArrayCollection();
         $this->reviews = new ArrayCollection();
@@ -80,13 +82,20 @@ final class Product
         $this->whoUpdated();
     }
 
-    public static function create($sku, $name, $description, $price, $user): self
+    public static function create(
+        string $sku,
+        string $name,
+        string $description,
+        int $price,
+        Category $category,
+        User $user): self
     {
         return new Product(
             $sku,
             $name,
             $description,
             $price,
+            $category,
             $user,
         );
     }

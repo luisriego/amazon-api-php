@@ -47,7 +47,6 @@ class Order
     private OrderStatus $status = OrderStatus::Pending;
 
     #[ORM\OneToOne(targetEntity: Address::class)]
-    #[ORM\JoinColumn(name: 'address_id', referencedColumnName: 'id')]
     private ?Address $orderAddress;
 
     private function __construct()
