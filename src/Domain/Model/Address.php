@@ -84,11 +84,6 @@ final class Address
         $this->whoUpdated();
     }
 
-    public function __toString(): string
-    {
-        return $this->name;
-    }
-
     public static function create(
         ?string $name,
         string $number,
@@ -165,5 +160,11 @@ final class Address
     public function isOwnedBy(User $user): bool
     {
         return $this->owner->getId() === $user->getId();
+    }
+
+
+    public function __toString(): string
+    {
+        return $this->number . " " . $this->street;
     }
 }

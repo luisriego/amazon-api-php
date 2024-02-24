@@ -50,7 +50,6 @@ class DoctrineAddressRepository extends BaseRepository implements AddressReposit
             throw ResourceNotFoundException::createFromClassAndId(Address::class, $id);
         }
 
-        // @var Address $address
         return $address;
     }
 

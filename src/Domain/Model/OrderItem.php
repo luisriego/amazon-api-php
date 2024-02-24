@@ -19,34 +19,47 @@ final class OrderItem
     use TimestampableTrait;
     use WhoTrait;
 
+    public const MIN_ROLE = 'ROLE_USER';
+
     #[ORM\Column(type: 'integer')]
     private int $price;
 
     #[ORM\Column(type: 'integer')]
     private int $quantity;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private string $imageUrl;
+    #[ORM\ManyToOne(targetEntity: Product::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Product $product;
 
-    //    private Order $order;
-    //    private Product $product;
+    #[ORM\ManyToOne(targetEntity: Order::class, inversedBy: 'orderItems')]
+    private ?Order $order;
 
     public function __construct(
         int $price,
         int $quantity,
+        Product $product,
+        Order $order,
+        User $user,
     ) {
         $this->id = Uuid::v4()->toRfc4122();
         $this->price  = $price;
         $this->quantity = $quantity;
+        $this->product = $product;
+        $this->order = $order;
         $this->createdOn = new DateTimeImmutable();
+        $this->creator($user->getUserIdentifier());
         $this->markAsUpdated();
+        $this->whoUpdated();
     }
 
-    public static function create($price, $quantity): self
+    public static function create($price, $quantity, $product, $order, $user): self
     {
         return new OrderItem(
             $price,
             $quantity,
+            $product,
+            $order,
+            $user,
         );
     }
 
@@ -70,13 +83,23 @@ final class OrderItem
         $this->quantity = $quantity;
     }
 
-    public function getImageUrl(): string
+    public function getProduct(): ?Product
     {
-        return $this->imageUrl;
+        return $this->product;
     }
 
-    public function setImageUrl(string $imageUrl): void
+    public function setProduct(?Product $product): void
     {
-        $this->imageUrl = $imageUrl;
+        $this->product = $product;
+    }
+
+    public function getOrder(): ?Order
+    {
+        return $this->order;
+    }
+
+    public function setOrder(?Order $order): void
+    {
+        $this->order = $order;
     }
 }
