@@ -88,8 +88,8 @@ final class Product
         string $description,
         int $price,
         Category $category,
-        User $user): self
-    {
+        User $user,
+    ): self {
         return new Product(
             $sku,
             $name,

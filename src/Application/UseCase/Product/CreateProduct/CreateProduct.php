@@ -28,9 +28,9 @@ readonly class CreateProduct
         /** @var User $authenticatedUser */
         $authenticatedUser = $this->security->getUser();
 
-//        if (null === $category = $this->categoryRepository->findOneByIdOrFail($createProductInputDto->category)) {
-//            throw ResourceNotFoundException::createFromClassAndId(Category::class, $createProductInputDto->category);
-//        }
+        //        if (null === $category = $this->categoryRepository->findOneByIdOrFail($createProductInputDto->category)) {
+        //            throw ResourceNotFoundException::createFromClassAndId(Category::class, $createProductInputDto->category);
+        //        }
 
         $category = $this->categoryRepository->findOneByIdOrFail($createProductInputDto->category);
 

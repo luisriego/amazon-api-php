@@ -14,7 +14,6 @@ readonly class CreateProductRequestDto implements RequestDto
     public string $description;
     public string $price;
     public ?string $category;
-    public ?string $user;
 
     public function __construct(Request $request)
     {
@@ -23,6 +22,5 @@ readonly class CreateProductRequestDto implements RequestDto
         $this->description = $request->request->get('description');
         $this->price = $request->request->get('price');
         $this->category = $request->request->get('category');
-        $this->user = $request->request->get('user');
     }
 }

@@ -15,7 +15,6 @@ class CreateProductInputDto
         'description',
         'price',
         'category',
-        'user'
     ];
 
     public function __construct(
@@ -24,7 +23,6 @@ class CreateProductInputDto
         public readonly string $description,
         public readonly string $price,
         public readonly ?string $category,
-        public readonly ?string $user,
     ) {
         $this->assertNotNull(
             self::ARGS,
@@ -33,8 +31,7 @@ class CreateProductInputDto
                 $this->description,
                 $this->price,
                 $this->category,
-                $this->user
-            ]
+            ],
         );
     }
 
@@ -44,8 +41,7 @@ class CreateProductInputDto
         ?string $description,
         ?string $price,
         ?string $category,
-        ?string $user,
     ): self {
-        return new CreateProductInputDto($sku, $name, $description, $price, $category, $user);
+        return new CreateProductInputDto($sku, $name, $description, $price, $category);
     }
 }

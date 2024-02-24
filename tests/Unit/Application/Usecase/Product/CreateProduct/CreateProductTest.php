@@ -10,6 +10,7 @@ use App\Domain\Model\User;
 use App\Domain\Repository\CategoryRepositoryInterface;
 use App\Domain\Repository\ProductRepositoryInterface;
 use App\Domain\Repository\UserRepositoryInterface;
+use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -23,12 +24,10 @@ final class CreateProductTest extends TestCase
         'description' => 'A wonderfully history',
         'price' => '3900',
         'category' => '9f9422af-cb8a-47a1-8764-680b93d637f6',
-        'user' => 'efc3eedf-ad24-4990-83b7-ac36e256752c',
+//        'user' => 'luisriego@hotmail.com'
     ];
 
     private readonly ProductRepositoryInterface|MockObject $productRepository;
-
-    private User $user;
 
     private readonly CreateProduct $useCase;
 
@@ -39,15 +38,12 @@ final class CreateProductTest extends TestCase
     {
         $this->productRepository = $this->createMock(ProductRepositoryInterface::class);
         $categoryRepository = $this->createMock(CategoryRepositoryInterface::class);
-        $userRepository = $this->createMock(UserRepositoryInterface::class);
         $security = $this->createMock(Security::class);
         $this->useCase = new CreateProduct(
             $this->productRepository,
             $categoryRepository,
             $security
         );
-
-        $this->user = $userRepository->findOneByEmailOrFail("luisriego@hotmail.com");
     }
 
     public function testCreateProduct(): void
@@ -58,7 +54,6 @@ final class CreateProductTest extends TestCase
             self::VALUES['description'],
             self::VALUES['price'],
             self::VALUES['category'],
-            $this->user->getId(),
         );
 
         $this->productRepository
