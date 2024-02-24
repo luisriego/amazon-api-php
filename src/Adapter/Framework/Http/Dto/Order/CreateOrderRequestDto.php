@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Adapter\Framework\Http\Dto\Orden;
+namespace App\Adapter\Framework\Http\Dto\Order;
 
 use App\Adapter\Framework\Http\Dto\RequestDto;
 use Symfony\Component\HttpFoundation\Request;
 
-class CreateOrdenRequestDto implements RequestDto
+class CreateOrderRequestDto implements RequestDto
 {
     public ?string $owner;
     public ?string $orderAddress;

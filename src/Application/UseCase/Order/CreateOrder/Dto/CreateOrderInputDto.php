@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Application\UseCase\Orden\CreateOrden\Dto;
+namespace App\Application\UseCase\Order\CreateOrder\Dto;
 
 use App\Domain\Validation\Traits\AssertNotNullTrait;
 
-final class CreateOrdenInputDto
+final class CreateOrderInputDto
 {
     use AssertNotNullTrait;
 
@@ -24,6 +24,6 @@ final class CreateOrdenInputDto
         ?string $owner,
         ?string $orderAddress,
     ): self {
-        return new CreateOrdenInputDto($owner, $orderAddress);
+        return new CreateOrderInputDto($owner, $orderAddress);
     }
 }

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Domain\Model;
 
 use App\Domain\Enums\OrderStatus;
-use App\Domain\Repository\OrdenRepositoryInterface;
+use App\Domain\Repository\OrderRepositoryInterface;
 use App\Domain\Trait\IdentifierTrait;
 use App\Domain\Trait\IsActiveTrait;
 use App\Domain\Trait\TimestampableTrait;
@@ -16,8 +16,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 
-#[ORM\Entity(repositoryClass: OrdenRepositoryInterface::class)]
-final class Orden
+#[ORM\Entity(repositoryClass: OrderRepositoryInterface::class)]
+#[ORM\Table(name: "`order`")]
+final class Order
 {
     use IdentifierTrait;
     use TimestampableTrait;
@@ -63,7 +64,7 @@ final class Orden
     {
         $this->id = Uuid::v4()->toRfc4122();
         $this->owner = $owner;
-        $this->$orderAddress = $orderAddress;
+        $this->orderAddress = $orderAddress;
         $this->subtotal = 0;
         $this->total = 0;
         $this->tax = 0;
@@ -81,7 +82,7 @@ final class Orden
 
     public static function create($owner, $orderAddress): self
     {
-        return new Orden($owner, $orderAddress);
+        return new Order($owner, $orderAddress);
     }
 
     public function getSubtotal(): int

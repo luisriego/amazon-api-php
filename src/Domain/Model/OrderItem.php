@@ -31,21 +31,21 @@ final class OrderItem
     #[ORM\JoinColumn(nullable: false)]
     private ?Product $product;
 
-    #[ORM\ManyToOne(targetEntity: Orden::class, inversedBy: 'orderItems')]
-    private ?Orden $orden;
+    #[ORM\ManyToOne(targetEntity: Order::class, inversedBy: 'orderItems')]
+    private ?Order $order;
 
     public function __construct(
         int $price,
         int $quantity,
         Product $product,
-        Orden $orden,
+        Order $order,
         User $user,
     ) {
         $this->id = Uuid::v4()->toRfc4122();
         $this->price  = $price;
         $this->quantity = $quantity;
         $this->product = $product;
-        $this->orden = $orden;
+        $this->order = $order;
         $this->createdOn = new DateTimeImmutable();
         $this->creator($user->getUserIdentifier());
         $this->markAsUpdated();
@@ -93,13 +93,13 @@ final class OrderItem
         $this->product = $product;
     }
 
-    public function getOrden(): ?Orden
+    public function getOrder(): ?Order
     {
-        return $this->orden;
+        return $this->order;
     }
 
-    public function setOrden(?Orden $orden): void
+    public function setOrder(?Order $order): void
     {
-        $this->orden = $orden;
+        $this->order = $order;
     }
 }
