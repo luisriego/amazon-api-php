@@ -51,7 +51,7 @@ final class Order
     #[ORM\Column(type: 'string', enumType: OrderStatus::class)]
     private OrderStatus $status = OrderStatus::Pending;
 
-    #[ORM\OneToOne(targetEntity: Address::class)]
+    #[ORM\ManyToOne(targetEntity: Address::class)]
     private ?Address $orderAddress;
 
     #[ORM\OneToMany(mappedBy: 'Order', targetEntity: OrderItem::class)]

@@ -21,7 +21,6 @@ class CreateOrder
     )
     { }
 
-    #[Route('/api/create-order', 'api_create_order', methods: ['POST'])]
     public function handle(CreateOrderInputDto $inputDto): CreateOrderOutputDto
     {
         /** @var User $user */
