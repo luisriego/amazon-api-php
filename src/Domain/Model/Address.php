@@ -63,8 +63,7 @@ class Address
         string $city,
         string $zipCode,
         ?Country $country,
-        User $owner,
-        User $user,
+//        User $owner,
     ) {
         $this->id = Uuid::v4()->toRfc4122();
         $this->name = $name;
@@ -79,9 +78,7 @@ class Address
         $this->owner = $owner;
         $this->isActive = false;
         $this->createdOn = new DateTimeImmutable();
-        $this->creator($user->getUserIdentifier());
         $this->markAsUpdated();
-        $this->whoUpdated();
     }
 
     public static function create(
@@ -94,8 +91,7 @@ class Address
         string $city,
         string $zipCode,
         ?Country $country,
-        User $owner,
-        User $user,
+//        User $owner,
     ): self {
         return new Address(
             $name,
@@ -107,8 +103,7 @@ class Address
             $city,
             $zipCode,
             $country,
-            $owner,
-            $user,
+//            $owner,
         );
     }
 
@@ -155,6 +150,11 @@ class Address
     public function getOwner(): ?User
     {
         return $this->owner;
+    }
+
+    public function setOwner(?User $owner): void
+    {
+        $this->owner = $owner;
     }
 
     public function isOwnedBy(User $user): bool

@@ -21,11 +21,6 @@ trait CreatedByTrait
         return $this->createdBy;
     }
 
-    public function whoCreated(): void
-    {
-        //        $this->security->getUser()->getUserIdentifier();
-    }
-
     public function creator(string $creator): void
     {
         $this->createdBy = $creator;

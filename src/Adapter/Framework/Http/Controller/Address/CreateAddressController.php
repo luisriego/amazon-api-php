@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Adapter\Framework\Http\Controller\Address;
 
-use App\Adapter\Framework\Http\Dto\Address\CreateImageRequestDto;
+use App\Adapter\Framework\Http\Dto\Address\CreateAddressRequestDto;
 use App\Application\UseCase\Address\CreateAddress\CreateAddress;
 use App\Application\UseCase\Address\CreateAddress\Dto\CreateAddressInputDto;
 use App\Domain\Model\Address;
@@ -19,12 +19,14 @@ class CreateAddressController extends AbstractController
     public function __construct(private readonly CreateAddress $createAddressService) {}
 
     #[Route('/api/create-address', 'api_address_create', methods: ['POST'])]
-    public function invoke(CreateImageRequestDto $requestDto): Response
+    public function invoke(CreateAddressRequestDto $requestDto): Response
     {
         $this->denyAccessUnlessGranted(
             Address::MIN_ROLE,
             null,
-            sprintf('Only user with [%s] or greater can create this type of resource.', Address::MIN_ROLE),
+            sprintf(
+                'Only user with [%s] or greater can create this type of resource.',
+                Address::MIN_ROLE),
         );
 
         $responseDto = $this->createAddressService->handle(

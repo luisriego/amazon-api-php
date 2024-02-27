@@ -31,21 +31,19 @@ class Category
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: Category::class, orphanRemoval: false)]
     private Collection $products;
 
-    private function __construct(string $name, User $user)
+    private function __construct(string $name)
     {
         $this->id = Uuid::v4()->toRfc4122();
         $this->name = $name;
         $this->products = new ArrayCollection();
         $this->isActive = false;
         $this->createdOn = new DateTimeImmutable();
-        $this->creator($user->getUserIdentifier());
         $this->markAsUpdated();
-        $this->whoUpdated();
     }
 
-    public static function create($name, $user): self
+    public static function create($name): self
     {
-        return new Category($name, $user);
+        return new Category($name);
     }
 
     public function getName(): string

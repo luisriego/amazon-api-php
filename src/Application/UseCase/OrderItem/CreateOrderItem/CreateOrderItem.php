@@ -11,20 +11,16 @@ use App\Domain\Repository\OrderRepositoryInterface;
 use App\Domain\Repository\ProductRepositoryInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 
-class CreateOrderItem
+readonly class CreateOrderItem
 {
     public function __construct(
-        private readonly OrderItemRepositoryInterface $orderItemRepository,
-        private readonly ProductRepositoryInterface $productRepository,
-        private readonly OrderRepositoryInterface $orderRepository,
-        private readonly Security $security,
+        private OrderItemRepositoryInterface $orderItemRepository,
+        private ProductRepositoryInterface   $productRepository,
+        private OrderRepositoryInterface     $orderRepository,
     ) { }
 
     public function handle(CreateOrderItemInputDto $inputDto): CreateOrderItemOutputDto
     {
-        /** @var User $user */
-        $authenticatedUser = $this->security->getUser();
-
         $product = $this->productRepository->findOneByIdOrFail($inputDto->product);
 
         $order = $this->orderRepository->findOneByIdOrFail($inputDto->order);
@@ -34,7 +30,6 @@ class CreateOrderItem
             (int)$inputDto->quantity,
             $product,
             $order,
-            $authenticatedUser
         );
 
         $this->orderItemRepository->add($orderItem, true);

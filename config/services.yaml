@@ -2,8 +2,8 @@ parameters:
 
 services:
     _defaults:
-        autowire: true      # Automatically injects dependencies in your services.
-        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        autowire: true
+        autoconfigure: true
 
     App\Adapter\Framework\Http\Controller\:
         resource: '../src/Adapter/Framework/Http/Controller/'
@@ -27,3 +27,10 @@ services:
     App\Adapter\Database\ORM\Doctrine\EventSubscriber\UserEventSubscriber:
         tags:
             - { name: doctrine.event_listener, event: preUpdate, method: preUpdate }
+
+    App\Adapter\Database\ORM\Doctrine\EventListener\AuthorEventListener:
+        tags:
+            - name: 'doctrine.event_listener'
+              event: 'prePersist'   # this is the only required option for the lifecycle listener tag
+              priority: 500
+              connection: 'default'

@@ -60,10 +60,9 @@ final class Order
     #[ORM\ManyToOne(targetEntity: User::class)]
     private ?User $owner;
 
-    private function __construct(User $owner, Address $orderAddress)
+    private function __construct(Address $orderAddress)
     {
         $this->id = Uuid::v4()->toRfc4122();
-        $this->owner = $owner;
         $this->orderAddress = $orderAddress;
         $this->subtotal = 0;
         $this->total = 0;
@@ -75,14 +74,12 @@ final class Order
         $this->orderItems = new ArrayCollection();
         $this->isActive = false;
         $this->createdOn = new DateTimeImmutable();
-        $this->creator($owner->getUserIdentifier());
         $this->markAsUpdated();
-        $this->whoUpdated();
     }
 
-    public static function create($owner, $orderAddress): self
+    public static function create($orderAddress): self
     {
-        return new Order($owner, $orderAddress);
+        return new Order($orderAddress);
     }
 
     public function getSubtotal(): int

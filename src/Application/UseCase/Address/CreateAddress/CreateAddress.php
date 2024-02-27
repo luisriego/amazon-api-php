@@ -22,14 +22,10 @@ readonly class CreateAddress
         private AddressRepositoryInterface $addressRepository,
         private CountryRepositoryInterface $countryRepository,
         private UserRepositoryInterface $userRepository,
-        private Security $security,
     ) {}
 
     public function handle(CreateAddressInputDto $addressInputDto): CreateAddressOutputDto
     {
-        /** @var User $authenticatedUser */
-        $authenticatedUser = $this->security->getUser();
-
         if (null === $owner = $this->userRepository->findOneByIdOrFail($addressInputDto->owner)) {
             throw ResourceNotFoundException::createFromClassAndId(User::class, $addressInputDto->owner);
         }
@@ -49,12 +45,11 @@ readonly class CreateAddress
             $addressInputDto->zipCode,
             $country,
             $owner,
-            $authenticatedUser,
         );
 
-        if (!$address->isOwnedBy($authenticatedUser)) {
-            throw CreateResourceDeniedException::deniedByNotBeTheOwner();
-        }
+//        if (!$address->isOwnedBy($authenticatedUser)) {
+//            throw CreateResourceDeniedException::deniedByNotBeTheOwner();
+//        }
 
         $this->addressRepository->add($address, true);
 

@@ -13,19 +13,15 @@ use App\Domain\Repository\ProductRepositoryInterface;
 use App\Domain\Repository\ReviewRepositoryInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 
-class CreateReview
+readonly class CreateReview
 {
     public function __construct(
-        private readonly ReviewRepositoryInterface $reviewRepository,
-        private readonly ProductRepositoryInterface $productRepository,
-        private readonly Security $security,
+        private ReviewRepositoryInterface  $reviewRepository,
+        private ProductRepositoryInterface $productRepository,
     ) {}
 
     public function handle(CreateReviewInputDto $inputDto): CreateReviewOutputDto
     {
-        /** @var User $authenticatedUser */
-        $authenticatedUser = $this->security->getUser();
-
         if (null === $product = $this->productRepository->findOneByIdOrFail($inputDto->product)) {
             throw ResourceNotFoundException::createFromClassAndId(Review::class, $inputDto->product);
         }
@@ -33,9 +29,8 @@ class CreateReview
         $review = Review::create(
             $inputDto->name,
             $inputDto->comment,
-            (int) $inputDto->rating,
+            $inputDto->rating,
             $product,
-            $authenticatedUser,
         );
 
         $this->reviewRepository->add($review, true);

@@ -27,7 +27,6 @@ class CreateOrderController extends AbstractController
 
         $responseDto = $this->createOrder->handle(
             CreateOrderInputDto::create(
-                $requestDto->owner,
                 $requestDto->orderAddress,
             )
         );

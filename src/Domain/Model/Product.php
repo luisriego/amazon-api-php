@@ -63,23 +63,18 @@ final class Product
         string $name,
         string $description,
         int $price,
-        Category $category,
-        User $user,
     ) {
         $this->id = Uuid::v4()->toRfc4122();
         $this->sku = $sku;
         $this->name = $name;
         $this->description = $description;
         $this->price = $price;
-        $this->category = $category;
         $this->stock = 0;
         $this->images = new ArrayCollection();
         $this->reviews = new ArrayCollection();
         $this->status = ProductStatus::Active;
         $this->createdOn = new DateTimeImmutable();
-        $this->creator($user->getUserIdentifier());
         $this->markAsUpdated();
-        $this->whoUpdated();
     }
 
     public static function create(
@@ -87,16 +82,12 @@ final class Product
         string $name,
         string $description,
         int $price,
-        Category $category,
-        User $user,
     ): self {
         return new Product(
             $sku,
             $name,
             $description,
             $price,
-            $category,
-            $user,
         );
     }
 
