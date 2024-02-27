@@ -10,6 +10,7 @@ use App\Application\UseCase\User\CreateUser\Dto\CreateUserOutputDto;
 use App\Domain\Model\User;
 use App\Domain\Repository\UserRepositoryInterface;
 use App\Domain\Security\PasswordHasherInterface;
+use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -25,6 +26,9 @@ final class CreateUserTest extends TestCase
     private readonly PasswordHasherInterface $passwordHasher;
     private readonly CreateUser $useCase;
 
+    /**
+     * @throws Exception
+     */
     public function setUp(): void
     {
         $this->userRepository = $this->createMock(UserRepositoryInterface::class);

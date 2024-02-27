@@ -15,16 +15,12 @@ readonly class CreateCategory
 {
     public function __construct(
         private CategoryRepositoryInterface $categoryRepository,
-        private Security $security,
     ) {}
 
     public function handle(CreateCategoryInputDto $createCategoryInputDto): CreateCategoryOutputDto
     {
-        /** @var User $authenticatedUser */
-        $authenticatedUser = $this->security->getUser();
-
         if (null === $category = $this->categoryRepository->findOneByNameOrFail($createCategoryInputDto->name)) {
-            $category = Category::create($createCategoryInputDto->name, $authenticatedUser);
+            $category = Category::create($createCategoryInputDto->name);
         }
 
         $this->categoryRepository->add($category, true);

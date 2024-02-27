@@ -62,7 +62,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->isActive = false;
         $this->createdOn = new DateTimeImmutable();
         $this->markAsUpdated();
-        $this->whoUpdated();
     }
 
     public static function create($name, $email, $password): self

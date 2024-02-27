@@ -3,7 +3,8 @@
 namespace Tests\Unit\Application\Usecase\Address;
 
 use App\Application\UseCase\Address\CreateAddress\CreateAddress;
-use App\Application\UseCase\Image\CreateImage\Dto\CreateImageInputDto;
+use App\Application\UseCase\Address\CreateAddress\Dto\CreateAddressInputDto;
+use App\Application\UseCase\Address\CreateAddress\Dto\CreateAddressOutputDto;
 use App\Domain\Model\Address;
 use App\Domain\Repository\AddressRepositoryInterface;
 use App\Domain\Repository\CountryRepositoryInterface;
@@ -11,7 +12,6 @@ use App\Domain\Repository\UserRepositoryInterface;
 use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Symfony\Bundle\SecurityBundle\Security;
 
 class CreateAddressTest extends TestCase
 {
@@ -24,12 +24,11 @@ class CreateAddressTest extends TestCase
         'neighborhood' => 'Sion',
         'city' => 'Belo Horizonte',
         'zipCode' => '30310-800',
-//        'country' => 'Brasil',
+        'country' => 32,
+        'owner' => 'efc3eedf-ad24-4990-83b7-ac36e256752c',
     ];
 
     private readonly AddressRepositoryInterface|MockObject $addressRepository;
-    private readonly UserRepositoryInterface|MockObject $userRepository;
-    private readonly Security|MockObject $security;
     private readonly CreateAddress $useCase;
 
 
@@ -40,13 +39,13 @@ class CreateAddressTest extends TestCase
     {
         $this->addressRepository = $this->createMock(AddressRepositoryInterface::class);
         $countryRepository = $this->createMock(CountryRepositoryInterface::class);
-        $this->security = $this->createMock(Security::class);
-        $this->useCase = new CreateAddress($this->addressRepository, $countryRepository, $this->userRepository, $this->security);
+        $userRepository = $this->createMock(UserRepositoryInterface::class);
+        $this->useCase = new CreateAddress($this->addressRepository, $countryRepository, $userRepository);
     }
 
     public function testCreateAddress(): void
     {
-        $dto = CreateImageInputDto::create(
+        $dto = CreateAddressInputDto::create(
             self::VALUES['name'],
             self::VALUES['number'],
             self::VALUES['street'],
@@ -56,6 +55,7 @@ class CreateAddressTest extends TestCase
             self::VALUES['city'],
             self::VALUES['zipCode'],
             self::VALUES['country'],
+            self::VALUES['owner'],
         );
 
         $this->addressRepository

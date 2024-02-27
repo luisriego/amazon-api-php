@@ -19,19 +19,15 @@ readonly class CreateImage
     public function __construct(
         private ImageRepositoryInterface $imageRepository,
         private ProductRepositoryInterface $productRepository,
-        private Security $security,
     ) {}
 
     public function handle(CreateImageInputDto $inputDto): CreateImageOutputDto
     {
-        /** @var User $authenticatedUser */
-        $authenticatedUser = $this->security->getUser();
-
         if (null === $product = $this->productRepository->findOneByIdOrFail($inputDto->product)) {
-            throw ResourceNotFoundException::createFromClassAndIntId(Product::class, $inputDto->product);
+            throw ResourceNotFoundException::createFromClassAndId(Product::class, $inputDto->product);
         }
 
-        $image = Image::create($inputDto->url, $inputDto->pubicCode, $product, $authenticatedUser);
+        $image = Image::create($inputDto->url, $inputDto->pubicCode, $product);
 
         $this->imageRepository->add($image, true);
 

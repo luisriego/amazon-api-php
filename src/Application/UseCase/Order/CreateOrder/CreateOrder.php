@@ -12,23 +12,19 @@ use App\Domain\Repository\OrderRepositoryInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Routing\Attribute\Route;
 
-class CreateOrder
+readonly class CreateOrder
 {
     public function __construct(
-        private readonly OrderRepositoryInterface $orderRepository,
-        private readonly AddressRepositoryInterface $addressRepository,
-        private readonly Security $security,
+        private OrderRepositoryInterface   $orderRepository,
+        private AddressRepositoryInterface $addressRepository,
     )
     { }
 
     public function handle(CreateOrderInputDto $inputDto): CreateOrderOutputDto
     {
-        /** @var User $user */
-        $authenticatedUser = $this->security->getUser();
-
         $orderAddress = $this->addressRepository->findOneByIdOrFail($inputDto->orderAddress);
 
-        $order = Order::create($authenticatedUser, $orderAddress);
+        $order = Order::create($orderAddress);
 
         $this->orderRepository->add($order, true);
 

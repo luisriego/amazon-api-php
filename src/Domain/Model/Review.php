@@ -42,28 +42,23 @@ final class Review
         string $comment,
         int $rating,
         Product $product,
-        User $user,
     ) {
         $this->id = Uuid::v4()->toRfc4122();
         $this->name = $name;
         $this->comment = $comment;
         $this->rating = $rating;
         $this->product = $product;
-        $this->owner = $user;
         $this->createdOn = new DateTimeImmutable();
-        $this->creator($user->getUserIdentifier());
         $this->markAsUpdated();
-        $this->whoUpdated();
     }
 
-    public static function create($name, $comment, $rating, $product, $user): self
+    public static function create($name, $comment, $rating, $product): self
     {
         return new Review(
             $name,
             $comment,
             $rating,
             $product,
-            $user,
         );
     }
 

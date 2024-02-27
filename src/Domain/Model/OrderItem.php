@@ -39,7 +39,6 @@ final class OrderItem
         int $quantity,
         Product $product,
         Order $order,
-        User $user,
     ) {
         $this->id = Uuid::v4()->toRfc4122();
         $this->price  = $price;
@@ -47,19 +46,16 @@ final class OrderItem
         $this->product = $product;
         $this->order = $order;
         $this->createdOn = new DateTimeImmutable();
-        $this->creator($user->getUserIdentifier());
         $this->markAsUpdated();
-        $this->whoUpdated();
     }
 
-    public static function create($price, $quantity, $product, $order, $user): self
+    public static function create($price, $quantity, $product, $order): self
     {
         return new OrderItem(
             $price,
             $quantity,
             $product,
             $order,
-            $user,
         );
     }
 

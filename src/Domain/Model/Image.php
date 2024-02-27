@@ -37,7 +37,6 @@ final class Image
         string $url,
         string $publicCode,
         Product $product,
-        User $user,
     ) {
         $this->id = Uuid::v4()->toRfc4122();
         $this->url = $url;
@@ -45,18 +44,15 @@ final class Image
         $this->product = $product;
         $this->isActive = false;
         $this->createdOn = new DateTimeImmutable();
-        $this->creator($user->getUserIdentifier());
         $this->markAsUpdated();
-        $this->whoUpdated();
     }
 
-    public static function create($url, $publicCode, $product, $user): self
+    public static function create($url, $publicCode, $product): self
     {
         return new Image(
             $url,
             $publicCode,
             $product,
-            $user,
         );
     }
 
