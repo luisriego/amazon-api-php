@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Application\Usecase\Address\Dto;
+namespace Tests\Unit\Application\Usecase\Address\CreateAddress\Dto;
 
 use App\Application\UseCase\Address\CreateAddress\Dto\CreateAddressInputDto;
 use PHPUnit\Framework\TestCase;
