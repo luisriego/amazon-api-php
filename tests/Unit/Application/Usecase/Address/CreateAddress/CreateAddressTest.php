@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Application\Usecase\Address;
+namespace Tests\Unit\Application\Usecase\Address\CreateAddress;
 
 use App\Application\UseCase\Address\CreateAddress\CreateAddress;
 use App\Application\UseCase\Address\CreateAddress\Dto\CreateAddressInputDto;

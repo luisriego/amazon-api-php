@@ -62,4 +62,13 @@ class DoctrineAddressRepository extends BaseRepository implements AddressReposit
         // @var Address $address
         return $address;
     }
+
+    public function findAllByClientOrFail(string $clientId): array
+    {
+        if (null === $addresses = $this->findBy(['owner' => $clientId])) {
+            throw ResourceNotFoundException::createFromClassAndId(Address::class, $clientId);
+        }
+
+        return $addresses;
+    }
 }

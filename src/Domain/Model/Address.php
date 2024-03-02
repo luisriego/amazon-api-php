@@ -75,7 +75,7 @@ class Address
         $this->city = $city;
         $this->zipCode = $zipCode;
         $this->country = $country;
-        $this->owner = $owner;
+//        $this->owner = $owner;
         $this->isActive = false;
         $this->createdOn = new DateTimeImmutable();
         $this->markAsUpdated();
@@ -162,9 +162,56 @@ class Address
         return $this->owner->getId() === $user->getId();
     }
 
+    public function getNumber(): string
+    {
+        return $this->number;
+    }
+
+    public function setNumber(string $number): void
+    {
+        $this->number = $number;
+    }
+
+    public function getStreet2(): ?string
+    {
+        return $this->street2;
+    }
+
+    public function setStreet2(?string $street2): void
+    {
+        $this->street2 = $street2;
+    }
+
+    public function getNeighborhood(): ?string
+    {
+        return $this->neighborhood;
+    }
+
+    public function setNeighborhood(?string $neighborhood): void
+    {
+        $this->neighborhood = $neighborhood;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): void
+    {
+        $this->name = $name;
+    }
 
     public function __toString(): string
     {
         return $this->number . " " . $this->street;
+    }
+
+    public function toArray(): array
+    {
+        return [
+            $this->name,
+            $this->__toString()
+        ];
     }
 }

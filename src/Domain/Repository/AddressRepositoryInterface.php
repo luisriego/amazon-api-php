@@ -17,4 +17,6 @@ interface AddressRepositoryInterface
     public function findOneByIdOrFail(string $id): Address;
 
     public function findOneByStreetOrFail(string $street): Address;
+
+    public function findAllByClientOrFail(string $clientId): array;
 }
