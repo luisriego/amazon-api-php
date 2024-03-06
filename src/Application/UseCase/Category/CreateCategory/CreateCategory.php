@@ -2,14 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Application\UseCase\Category;
+namespace App\Application\UseCase\Category\CreateCategory;
 
-use App\Application\UseCase\Category\Dto\CreateCategoryInputDto;
-use App\Application\UseCase\Category\Dto\CreateCategoryOutputDto;
+use App\Application\UseCase\Category\CreateCategory\Dto\CreateCategoryInputDto;
+use App\Application\UseCase\Category\CreateCategory\Dto\CreateCategoryOutputDto;
 use App\Domain\Model\Category;
-use App\Domain\Model\User;
 use App\Domain\Repository\CategoryRepositoryInterface;
-use Symfony\Bundle\SecurityBundle\Security;
 
 readonly class CreateCategory
 {

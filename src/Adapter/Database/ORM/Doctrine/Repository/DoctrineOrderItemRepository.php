@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Adapter\Database\ORM\Doctrine\Repository;
 
 use App\Adapter\Database\ORM\Doctrine\BaseRepository;
@@ -9,10 +11,11 @@ use App\Domain\Repository\OrderItemRepositoryInterface;
 use Doctrine\Persistence\ManagerRegistry;
 
 class DoctrineOrderItemRepository extends BaseRepository implements OrderItemRepositoryInterface
-{public function __construct(ManagerRegistry $registry)
 {
-    parent::__construct($registry, OrderItem::class);
-}
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, OrderItem::class);
+    }
 
     public function add(OrderItem $orderItem, bool $flush): void
     {

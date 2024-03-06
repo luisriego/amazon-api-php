@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Application\UseCase\Category\Dto;
+namespace App\Application\UseCase\Category\CreateCategory\Dto;
 
 use App\Domain\Validation\Traits\AssertLengthRangeTrait;
 use App\Domain\Validation\Traits\AssertNotNullTrait;

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Application\UseCase\Address\GetAddressesByClient\Dto;
+namespace App\Application\UseCase\Category\GetCategoryById\Dto;
 
 use App\Domain\Validation\Traits\AssertNotNullTrait;
 
-class GetAddressesByClientInputDto
+final class GetCategoryByIdInputDto
 {
     use AssertNotNullTrait;
 
@@ -20,6 +20,6 @@ class GetAddressesByClientInputDto
 
     public static function create(?string $id): self
     {
-        return new static($id);
+        return new GetCategoryByIdInputDto($id);
     }
 }

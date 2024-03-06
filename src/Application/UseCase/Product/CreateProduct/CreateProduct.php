@@ -6,15 +6,10 @@ namespace App\Application\UseCase\Product\CreateProduct;
 
 use App\Application\UseCase\Product\CreateProduct\Dto\CreateProductInputDto;
 use App\Application\UseCase\Product\CreateProduct\Dto\CreateProductOutputDto;
-use App\Domain\Exception\ResourceNotFoundException;
 use App\Domain\Exception\UnableToCreateResourceException;
-use App\Domain\Model\Category;
 use App\Domain\Model\Product;
-use App\Domain\Model\User;
 use App\Domain\Repository\CategoryRepositoryInterface;
 use App\Domain\Repository\ProductRepositoryInterface;
-use Symfony\Bundle\SecurityBundle\Security;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 readonly class CreateProduct
 {

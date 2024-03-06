@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Adapter\Database\ORM\Doctrine\EventListener;
 
 use App\Domain\Model\Address;
@@ -10,9 +12,7 @@ use Symfony\Bundle\SecurityBundle\Security;
 
 readonly class AuthorEventListener
 {
-    public function __construct(private Security $security)
-    {
-    }
+    public function __construct(private Security $security) {}
 
     public function prePersist(PrePersistEventArgs $args): void
     {

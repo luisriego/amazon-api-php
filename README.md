@@ -46,7 +46,7 @@ Insert phpunit testing with composer '
 ```
 composer require --dev phpunit/phpunit symfony/test-pack
 ```
-Run sf d:m:m -n --env=test to apply migrations on test enviroment
+Run sf d:m:m -n --env=test to apply migrations on test environment
 composer dump-autoload --- when not found files after rename it
 
 If .pem has access problems: 'chmod 644 public.pem private.pem'

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Adapter\Framework\Http\Controller\OrderItem;
 
 use App\Adapter\Framework\Http\Dto\OrderItem\CreateOrderItemRequestDto;
@@ -10,11 +12,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
+use function sprintf;
+
 class CreateOrderItemController extends AbstractController
 {
-    public function __construct(private readonly CreateOrderItem $createOrderItem)
-    {
-    }
+    public function __construct(private readonly CreateOrderItem $createOrderItem) {}
 
     #[Route('api/create-order-item', name: 'api_order_item_create', methods: ['POST'])]
     public function __invoke(CreateOrderItemRequestDto $requestDto): Response
@@ -24,7 +26,8 @@ class CreateOrderItemController extends AbstractController
             null,
             sprintf(
                 'Only user with [%s] or greater can create this type of resource.',
-                OrderItem::MIN_ROLE),
+                OrderItem::MIN_ROLE,
+            ),
         );
 
         $responseDto = $this->createOrderItem->handle(
@@ -33,7 +36,7 @@ class CreateOrderItemController extends AbstractController
                 $requestDto->quantity,
                 $requestDto->product,
                 $requestDto->order,
-            )
+            ),
         );
 
         return $this->json(['orderItemId' => $responseDto->id], Response::HTTP_CREATED);

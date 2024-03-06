@@ -18,7 +18,7 @@ class CreateAddressController extends AbstractController
 {
     public function __construct(private readonly CreateAddress $createAddressService) {}
 
-    #[Route('/api/create-address', 'api_address_create', methods: ['POST'])]
+    #[Route('/api/address/create', 'api_address_create', methods: ['POST'])]
     public function invoke(CreateAddressRequestDto $requestDto): Response
     {
         $this->denyAccessUnlessGranted(
@@ -26,7 +26,8 @@ class CreateAddressController extends AbstractController
             null,
             sprintf(
                 'Only user with [%s] or greater can create this type of resource.',
-                Address::MIN_ROLE),
+                Address::MIN_ROLE,
+            ),
         );
 
         $responseDto = $this->createAddressService->handle(

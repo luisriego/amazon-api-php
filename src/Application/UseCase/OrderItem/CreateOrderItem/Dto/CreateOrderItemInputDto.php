@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Application\UseCase\OrderItem\CreateOrderItem\Dto;
 
 use App\Domain\Validation\Traits\AssertNotNullTrait;
@@ -12,7 +14,7 @@ class CreateOrderItemInputDto
         'price',
         'quantity',
         'product',
-        'order'
+        'order',
     ];
 
     public function __construct(
@@ -23,7 +25,7 @@ class CreateOrderItemInputDto
     ) {
         $this->assertNotNull(
             self::ARGS,
-            [$this->price, $this->quantity, $this->product, $this->order]
+            [$this->price, $this->quantity, $this->product, $this->order],
         );
     }
 

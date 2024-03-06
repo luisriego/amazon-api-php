@@ -8,15 +8,13 @@ use App\Application\UseCase\Review\CreateReview\Dto\CreateReviewInputDto;
 use App\Application\UseCase\Review\CreateReview\Dto\CreateReviewOutputDto;
 use App\Domain\Exception\ResourceNotFoundException;
 use App\Domain\Model\Review;
-use App\Domain\Model\User;
 use App\Domain\Repository\ProductRepositoryInterface;
 use App\Domain\Repository\ReviewRepositoryInterface;
-use Symfony\Bundle\SecurityBundle\Security;
 
 readonly class CreateReview
 {
     public function __construct(
-        private ReviewRepositoryInterface  $reviewRepository,
+        private ReviewRepositoryInterface $reviewRepository,
         private ProductRepositoryInterface $productRepository,
     ) {}
 

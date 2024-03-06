@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Adapter\Framework\Http\Controller\Category;
 
 use App\Adapter\Framework\Http\Dto\Category\CreateCategoryRequestDto;
-use App\Application\UseCase\Category\CreateCategory;
-use App\Application\UseCase\Category\Dto\CreateCategoryInputDto;
+use App\Application\UseCase\Category\CreateCategory\CreateCategory;
+use App\Application\UseCase\Category\CreateCategory\Dto\CreateCategoryInputDto;
 use App\Domain\Exception\Security\CreateAccessDeniedException;
 use App\Domain\Model\Category;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,7 +17,7 @@ class CreateCategoryController extends AbstractController
 {
     public function __construct(private readonly CreateCategory $createCategoryService) {}
 
-    #[Route('api/create-category', 'api_category_create', methods: ['POST'])]
+    #[Route('api/category/create', 'api_category_create', methods: ['POST'])]
     public function __invoke(CreateCategoryRequestDto $request): Response
     {
         if (!$this->isGranted('ROLE_ADMIN')) {

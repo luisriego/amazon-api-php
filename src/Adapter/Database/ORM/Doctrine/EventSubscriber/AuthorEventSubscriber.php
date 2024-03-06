@@ -11,9 +11,7 @@ use Symfony\Bundle\SecurityBundle\Security;
 
 readonly class AuthorEventSubscriber implements EventSubscriber
 {
-        public function __construct(private Security $security)
-        {
-        }
+    public function __construct(private Security $security) {}
 
     public function getSubscribedEvents(): array
     {
@@ -27,7 +25,6 @@ readonly class AuthorEventSubscriber implements EventSubscriber
         $authenticatedUser = $this->security->getUser();
 
         $entity = $args->getObject();
-
 
         //        if ($entity instanceof User) {
         //            $this->logger->info(\sprintf('User has been updated! Changes: %s', 'no lo sé'));

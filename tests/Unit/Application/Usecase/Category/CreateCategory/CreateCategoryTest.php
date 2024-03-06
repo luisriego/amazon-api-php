@@ -2,9 +2,9 @@
 
 namespace Tests\Unit\Application\Usecase\Category\CreateCategory;
 
-use App\Application\UseCase\Category\CreateCategory;
-use App\Application\UseCase\Category\Dto\CreateCategoryInputDto;
-use App\Application\UseCase\Category\Dto\CreateCategoryOutputDto;
+use App\Application\UseCase\Category\CreateCategory\CreateCategory;
+use App\Application\UseCase\Category\CreateCategory\Dto\CreateCategoryInputDto;
+use App\Application\UseCase\Category\CreateCategory\Dto\CreateCategoryOutputDto;
 use App\Domain\Model\Category;
 use App\Domain\Repository\CategoryRepositoryInterface;
 use PHPUnit\Framework\MockObject\Exception;

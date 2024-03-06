@@ -63,7 +63,7 @@ class Address
         string $city,
         string $zipCode,
         ?Country $country,
-//        User $owner,
+        //        User $owner,
     ) {
         $this->id = Uuid::v4()->toRfc4122();
         $this->name = $name;
@@ -75,10 +75,15 @@ class Address
         $this->city = $city;
         $this->zipCode = $zipCode;
         $this->country = $country;
-//        $this->owner = $owner;
+        //        $this->owner = $owner;
         $this->isActive = false;
         $this->createdOn = new DateTimeImmutable();
         $this->markAsUpdated();
+    }
+
+    public function __toString(): string
+    {
+        return $this->number . ' ' . $this->street;
     }
 
     public static function create(
@@ -91,7 +96,7 @@ class Address
         string $city,
         string $zipCode,
         ?Country $country,
-//        User $owner,
+        //        User $owner,
     ): self {
         return new Address(
             $name,
@@ -103,7 +108,7 @@ class Address
             $city,
             $zipCode,
             $country,
-//            $owner,
+            //            $owner,
         );
     }
 
@@ -202,16 +207,11 @@ class Address
         $this->name = $name;
     }
 
-    public function __toString(): string
-    {
-        return $this->number . " " . $this->street;
-    }
-
     public function toArray(): array
     {
         return [
             $this->name,
-            $this->__toString()
+            $this->__toString(),
         ];
     }
 }
