@@ -1,21 +1,20 @@
 <?php
 
-namespace App\Application\UseCase\Address\GetAddressesByClient\Dto;
+declare(strict_types=1);
 
-use App\Domain\Model\Address;
+namespace App\Application\UseCase\Address\GetAddressesByClient\Dto;
 
 readonly class GetAddressesByClientOutputDto
 {
     private function __construct(
         public array $addresses,
-    ) {
-    }
+    ) {}
 
     public static function create(array $addresses): array
     {
         $result = [];
 
-        foreach ($addresses as $address){
+        foreach ($addresses as $address) {
             $result[] = $address;
         }
 

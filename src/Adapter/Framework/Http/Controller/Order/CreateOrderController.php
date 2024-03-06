@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Adapter\Framework\Http\Controller\Order;
 
 use App\Adapter\Framework\Http\Dto\Order\CreateOrderRequestDto;
@@ -10,11 +12,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
+use function sprintf;
+
 class CreateOrderController extends AbstractController
 {
-    public function __construct(private readonly CreateOrder $createOrder)
-    {
-    }
+    public function __construct(private readonly CreateOrder $createOrder) {}
 
     #[Route('/api/create-order', 'api_order_create', methods: ['POST'])]
     public function __invoke(CreateOrderRequestDto $requestDto): Response
@@ -28,10 +30,9 @@ class CreateOrderController extends AbstractController
         $responseDto = $this->createOrder->handle(
             CreateOrderInputDto::create(
                 $requestDto->orderAddress,
-            )
+            ),
         );
 
         return $this->json(['orderId' => $responseDto->id], Response::HTTP_CREATED);
     }
-
 }

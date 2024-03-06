@@ -44,3 +44,6 @@ ssh: ## bash into the be container
 
 generate-ssh-keys: ## Generates SSH keys for JWT authentication
 	U_ID=${UID} docker exec --user ${UID} ${DOCKER_BE} bin/console lexik:jwt:generate-keypair
+
+tests:
+	U_ID=${UID} docker exec --user ${UID} ${DOCKER_BE} vendor/bin/simple-phpunit -c phpunit.xml.dist

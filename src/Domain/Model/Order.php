@@ -17,7 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity(repositoryClass: OrderRepositoryInterface::class)]
-#[ORM\Table(name: "`order`")]
+#[ORM\Table(name: '`order`')]
 final class Order
 {
     use IdentifierTrait;
@@ -68,9 +68,9 @@ final class Order
         $this->total = 0;
         $this->tax = 0;
         $this->shippingPrice = 0;
-        $this->paymentIntentId = "";
-        $this->clientSecret = "";
-        $this->stripeApiKey = "";
+        $this->paymentIntentId = '';
+        $this->clientSecret = '';
+        $this->stripeApiKey = '';
         $this->orderItems = new ArrayCollection();
         $this->isActive = false;
         $this->createdOn = new DateTimeImmutable();

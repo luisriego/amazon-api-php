@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Adapter\Framework\Http\Dto\Address;
+namespace App\Adapter\Framework\Http\Dto\Category;
 
 use App\Adapter\Framework\Http\Dto\RequestDto;
 use Symfony\Component\HttpFoundation\Request;
 
-readonly class GetAddressesByClientRequestDto implements RequestDto
+readonly class GetCategoryByIdRequestDto implements RequestDto
 {
     public ?string $id;
 

@@ -9,10 +9,8 @@ use App\Application\UseCase\Image\CreateImage\Dto\CreateImageOutputDto;
 use App\Domain\Exception\ResourceNotFoundException;
 use App\Domain\Model\Image;
 use App\Domain\Model\Product;
-use App\Domain\Model\User;
 use App\Domain\Repository\ImageRepositoryInterface;
 use App\Domain\Repository\ProductRepositoryInterface;
-use Symfony\Bundle\SecurityBundle\Security;
 
 readonly class CreateImage
 {

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Application\Usecase\Category\CreateCategory\Dto;
 
-use App\Application\UseCase\Category\Dto\CreateCategoryInputDto;
+use App\Application\UseCase\Category\CreateCategory\Dto\CreateCategoryInputDto;
 use PHPUnit\Framework\TestCase;
 
 class CreateCategoryInputDtoTest extends TestCase

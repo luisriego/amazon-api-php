@@ -14,7 +14,6 @@ use App\Domain\Model\User;
 use App\Domain\Repository\AddressRepositoryInterface;
 use App\Domain\Repository\CountryRepositoryInterface;
 use App\Domain\Repository\UserRepositoryInterface;
-use Symfony\Bundle\SecurityBundle\Security;
 
 readonly class CreateAddress
 {
@@ -47,9 +46,9 @@ readonly class CreateAddress
             $owner,
         );
 
-//        if (!$address->isOwnedBy($authenticatedUser)) {
-//            throw CreateResourceDeniedException::deniedByNotBeTheOwner();
-//        }
+        //        if (!$address->isOwnedBy($authenticatedUser)) {
+        //            throw CreateResourceDeniedException::deniedByNotBeTheOwner();
+        //        }
 
         $this->addressRepository->add($address, true);
 

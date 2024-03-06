@@ -12,16 +12,15 @@ trait UpdatedByTrait
     #[ORM\Column(type: 'string', length: 50)]
     protected string $updatedBy;
 
-//            public function __construct(
-//                private readonly TokenStorageInterface $tokenStorage
-//            ) {
-//            }
+    //            public function __construct(
+    //                private readonly TokenStorageInterface $tokenStorage
+    //            ) {
+    //            }
 
     public function getUpdatedOBy(): string
     {
         return $this->updatedBy;
     }
-
 
     public function whoUpdated(string $user): void
     {
