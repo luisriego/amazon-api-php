@@ -17,5 +17,7 @@ interface ProductRepositoryInterface
 
     public function findOneByIdOrFail(string $id): Product;
 
+    public function findAllByCategoryIdOrFail(string $categoryId): ?array;
+
     public function findOneRepeated(string $name, int $price, Category $category): ?Product;
 }
