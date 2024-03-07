@@ -7,12 +7,12 @@ namespace App\Adapter\Framework\Http\Dto\Category;
 use App\Adapter\Framework\Http\Dto\RequestDto;
 use Symfony\Component\HttpFoundation\Request;
 
-readonly class ActivationCategorySwitchRequestDto implements RequestDto
+class DeleteCategoryRequestDto implements RequestDto
 {
-    public ?string $id;
+    public readonly ?string $id;
 
     public function __construct(Request $request)
     {
-        $this->id = $request->request->get('id');
+        $this->id = $request->attributes->get('id');
     }
 }

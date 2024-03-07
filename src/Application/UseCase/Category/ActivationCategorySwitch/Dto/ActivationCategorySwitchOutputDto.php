@@ -1,14 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Application\UseCase\Category\ActivationCategorySwitch\Dto;
 
 use App\Domain\Model\Category;
 
 readonly class ActivationCategorySwitchOutputDto
 {
-    private function __construct(public array $CategoryData)
-    {
-    }
+    private function __construct(public array $CategoryData) {}
 
     public static function create(Category $category): self
     {

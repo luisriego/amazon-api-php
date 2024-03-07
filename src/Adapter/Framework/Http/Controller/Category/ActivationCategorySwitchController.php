@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Adapter\Framework\Http\Controller\Category;
 
 use App\Adapter\Framework\Http\Dto\Category\ActivationCategorySwitchRequestDto;
@@ -13,8 +15,7 @@ class ActivationCategorySwitchController extends AbstractController
 {
     public function __construct(
         private readonly ActivationCategorySwitch $activationCategorySwitchService,
-    ) {
-    }
+    ) {}
 
     #[Route('/api/category/switch-activation', name: 'api_switch_activation_category', methods: ['PUT'])]
     public function __invoke(ActivationCategorySwitchRequestDto $request): Response

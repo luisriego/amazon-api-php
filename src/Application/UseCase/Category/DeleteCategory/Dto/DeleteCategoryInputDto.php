@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Application\UseCase\Category\ActivationCategorySwitch\Dto;
+namespace App\Application\UseCase\Category\DeleteCategory\Dto;
 
 use App\Domain\Validation\Traits\AssertNotNullTrait;
 
-class ActivationCategorySwitchInputDto
+class DeleteCategoryInputDto
 {
     use AssertNotNullTrait;
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Application\UseCase\Category\ActivationCategorySwitch;
 
 use App\Application\UseCase\Category\ActivationCategorySwitch\Dto\ActivationCategorySwitchInputDto;
@@ -8,9 +10,7 @@ use App\Domain\Repository\CategoryRepositoryInterface;
 
 readonly class ActivationCategorySwitch
 {
-    public function __construct(private CategoryRepositoryInterface $categoryRepository)
-    {
-    }
+    public function __construct(private CategoryRepositoryInterface $categoryRepository) {}
 
     public function handle(ActivationCategorySwitchInputDto $inputDto): ActivationCategorySwitchOutputDto
     {
