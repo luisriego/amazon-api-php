@@ -77,4 +77,13 @@ class DoctrineProductRepository extends BaseRepository implements ProductReposit
             ->getQuery()
             ->getOneOrNullResult();
     }
+
+    public function findAllByCategoryIdOrFail(string $categoryId): ?array
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.category = :category')
+            ->setParameter('category', $categoryId)
+            ->getQuery()
+            ->getArrayResult();
+    }
 }
