@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App\Adapter\Database\ORM\Doctrine\EventListener;
 
+use App\Domain\Enums\ProductStatus;
 use App\Domain\Model\Address;
 use App\Domain\Model\Order;
+use App\Domain\Model\Product;
 use App\Domain\Model\Review;
 use Doctrine\ORM\Event\PrePersistEventArgs;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -32,6 +34,12 @@ readonly class AuthorEventListener
 
         if ($entity instanceof Review) {
             $entity->setOwner($this->security->getUser());
+        }
+
+        if ($entity instanceof Product) {
+            if ($entity->getStock() === 0) {
+                $entity->setStatus(ProductStatus::Inactive);
+            }
         }
     }
 }
