@@ -234,4 +234,13 @@ class Product
     {
         $this->category = $category;
     }
+
+    public function toggleStatus(): void
+    {
+        if ($this->status === ProductStatus::Active) {
+            $this->setStatus(ProductStatus::Inactive);
+        } else {
+            $this->setStatus(ProductStatus::Active);
+        }
+    }
 }

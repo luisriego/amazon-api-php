@@ -24,7 +24,7 @@ readonly class DeleteAddress
         $addressesByUser = $this->addressRepository->findAllByClientOrFail($addressToDelete->getOwner()->getId());
 
         if (count($addressesByUser) <= 1) {
-            throw UnableToDeleteResourceException::createFromClassAndId(Address::class, $dto->id);
+            throw UnableToDeleteResourceException::deleteLastFromClassAndId(Address::class, $dto->id);
         }
 
         $this->addressRepository->remove($addressToDelete, true);

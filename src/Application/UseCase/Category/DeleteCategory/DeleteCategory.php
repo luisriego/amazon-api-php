@@ -26,7 +26,7 @@ readonly class DeleteCategory
         $products = $this->productRepository->findAllByCategoryIdOrFail($dto->id);
 
         if (count($products) > 0) {
-            throw UnableToDeleteResourceException::createFromClassAndId(Category::class, $dto->id);
+            throw UnableToDeleteResourceException::deleteFromClassAndId(Category::class, $dto->id);
         }
 
         $this->categoryRepository->remove($categoryToDelete, true);

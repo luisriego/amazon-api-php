@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Application\UseCase\Category\UpdateCategory;
 
-use App\Application\UseCase\Category\UpdateCategory\Dto\DeleteCategoryInputDto;
-use App\Application\UseCase\Category\UpdateCategory\Dto\DeleteCategoryOutputDto;
+use App\Application\UseCase\Category\UpdateCategory\Dto\UpdateCategoryInputDto;
+use App\Application\UseCase\Category\UpdateCategory\Dto\UpdateCategoryOutputDto;
 use App\Domain\Repository\CategoryRepositoryInterface;
 
 use function sprintf;
@@ -17,7 +17,7 @@ class UpdateCategory
 
     public function __construct(private readonly CategoryRepositoryInterface $categoryRepository) {}
 
-    public function handle(DeleteCategoryInputDto $dto): DeleteCategoryOutputDto
+    public function handle(UpdateCategoryInputDto $dto): UpdateCategoryOutputDto
     {
         $category = $this->categoryRepository->findOneByIdOrFail($dto->id);
 
@@ -28,6 +28,6 @@ class UpdateCategory
 
         $this->categoryRepository->save($category, true);
 
-        return DeleteCategoryOutputDto::create($category);
+        return UpdateCategoryOutputDto::create($category);
     }
 }
