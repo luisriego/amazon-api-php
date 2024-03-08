@@ -15,4 +15,6 @@ interface ImageRepositoryInterface
     public function remove(Image $image, bool $flush): void;
 
     public function findOneByIdOrFail(string $id): Image;
+
+    public function findAllByProductIdOrFail(string $productId): ?array;
 }

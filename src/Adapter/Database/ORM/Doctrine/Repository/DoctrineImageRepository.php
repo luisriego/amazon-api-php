@@ -6,6 +6,7 @@ namespace App\Adapter\Database\ORM\Doctrine\Repository;
 
 use App\Adapter\Database\ORM\Doctrine\BaseRepository;
 use App\Domain\Exception\ResourceNotFoundException;
+use App\Domain\Model\Address;
 use App\Domain\Model\Image;
 use App\Domain\Repository\ImageRepositoryInterface;
 use Doctrine\Persistence\ManagerRegistry;
@@ -51,5 +52,14 @@ class DoctrineImageRepository extends BaseRepository implements ImageRepositoryI
         }
 
         return $image;
+    }
+
+    public function findAllByProductIdOrFail(string $productId): ?array
+    {
+        if (null === $images = $this->findBy(['product' => $productId])) {
+            throw ResourceNotFoundException::createFromClassAndId(Image::class, $productId);
+        }
+
+        return $images;
     }
 }

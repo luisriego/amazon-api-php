@@ -2,8 +2,8 @@
 
 namespace Tests\Unit\Application\Usecase\Address\GetAddressesByClient;
 
-use App\Application\UseCase\Address\GetAddressesByClient\Dto\GetAddressesByClientInputDto;
-use App\Application\UseCase\Address\GetAddressesByClient\GetAddressesByClient;
+use App\Application\UseCase\Address\GetAddressesByClient\Dto\GetImagesByProductInputDto;
+use App\Application\UseCase\Address\GetAddressesByClient\GetImagesByProduct;
 //use App\Domain\Exception\ResourceNotFoundException;
 use App\Domain\Model\Address;
 use App\Domain\Repository\AddressRepositoryInterface;
@@ -27,7 +27,7 @@ class GetAddressesByClientTest extends TestCase
         'country' => 32,
     ];
 
-    private GetAddressesByClient $useCase;
+    private GetImagesByProduct $useCase;
 
     private readonly AddressRepositoryInterface|MockObject $addressRepository;
     private readonly CountryRepositoryInterface|MockObject $countryRepository;
@@ -39,7 +39,7 @@ class GetAddressesByClientTest extends TestCase
     {
         $this->addressRepository = $this->createMock(AddressRepositoryInterface::class);
         $this->countryRepository = $this->createMock(CountryRepositoryInterface::class);
-        $this->useCase = new GetAddressesByClient($this->addressRepository);
+        $this->useCase = new GetImagesByProduct($this->addressRepository);
     }
 
     public function testGetAddressesByClient(): void
@@ -56,7 +56,7 @@ class GetAddressesByClientTest extends TestCase
             $this->countryRepository->findOneByIdOrFail(self::ADDRESS_DATA['country']),
         );
 
-        $inputDto = GetAddressesByClientInputDto::create($address->getId());
+        $inputDto = GetImagesByProductInputDto::create($address->getId());
 
         $this->addressRepository
             ->expects($this->once())
