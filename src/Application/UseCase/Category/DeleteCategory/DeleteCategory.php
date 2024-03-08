@@ -12,11 +12,11 @@ use App\Domain\Repository\ProductRepositoryInterface;
 
 use function count;
 
-class DeleteCategory
+readonly class DeleteCategory
 {
     public function __construct(
-        private readonly CategoryRepositoryInterface $categoryRepository,
-        private readonly ProductRepositoryInterface $productRepository,
+        private CategoryRepositoryInterface $categoryRepository,
+        private ProductRepositoryInterface $productRepository,
     ) {}
 
     public function handle(DeleteCategoryInputDto $dto): void

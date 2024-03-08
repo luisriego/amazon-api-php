@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Adapter\Framework\Http\Dto\Category;
+namespace App\Adapter\Framework\Http\Dto\Address;
 
 use App\Adapter\Framework\Http\Dto\RequestDto;
 use Symfony\Component\HttpFoundation\Request;
 
-readonly class DeleteCategoryRequestDto implements RequestDto
+readonly class DeleteAddressRequestDto implements RequestDto
 {
     public ?string $id;
 
