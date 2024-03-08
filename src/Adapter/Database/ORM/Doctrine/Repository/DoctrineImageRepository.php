@@ -6,7 +6,6 @@ namespace App\Adapter\Database\ORM\Doctrine\Repository;
 
 use App\Adapter\Database\ORM\Doctrine\BaseRepository;
 use App\Domain\Exception\ResourceNotFoundException;
-use App\Domain\Model\Address;
 use App\Domain\Model\Image;
 use App\Domain\Repository\ImageRepositoryInterface;
 use Doctrine\Persistence\ManagerRegistry;
