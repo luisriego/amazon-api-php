@@ -52,4 +52,13 @@ class DoctrineImageRepository extends BaseRepository implements ImageRepositoryI
 
         return $image;
     }
+
+    public function findAllByProductIdOrFail(string $productId): ?array
+    {
+        if (null === $images = $this->findBy(['product' => $productId])) {
+            throw ResourceNotFoundException::createFromClassAndId(Image::class, $productId);
+        }
+
+        return $images;
+    }
 }

@@ -85,4 +85,12 @@ final class Image
     {
         $this->product = $product;
     }
+
+    public function toArray(): array
+    {
+        return [
+            $this->url,
+            $this->publicCode,
+        ];
+    }
 }

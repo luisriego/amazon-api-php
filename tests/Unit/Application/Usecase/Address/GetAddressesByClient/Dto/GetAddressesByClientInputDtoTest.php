@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Application\Usecase\Address\GetAddressesByClient\Dto;
 
-use App\Application\UseCase\Address\GetAddressesByClient\Dto\GetAddressesByClientInputDto;
+use App\Application\UseCase\Address\GetAddressesByClient\Dto\GetImagesByProductInputDto;
 use App\Domain\Exception\InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
@@ -12,9 +12,9 @@ class GetAddressesByClientInputDtoTest extends TestCase
 
     public function testGetAddressesByClientInputDTO(): void
     {
-        $dto = GetAddressesByClientInputDto::create(self::CLIENT_ID);
+        $dto = GetImagesByProductInputDto::create(self::CLIENT_ID);
 
-        self::assertInstanceOf(GetAddressesByClientInputDto::class, $dto);
+        self::assertInstanceOf(GetImagesByProductInputDto::class, $dto);
         self::assertEquals(self::CLIENT_ID, $dto->id);
     }
 
@@ -23,6 +23,6 @@ class GetAddressesByClientInputDtoTest extends TestCase
         self::expectException(InvalidArgumentException::class);
         self::expectExceptionMessage('Invalid arguments [id]');
 
-        GetAddressesByClientInputDto::create(null);
+        GetImagesByProductInputDto::create(null);
     }
 }
