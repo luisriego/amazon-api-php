@@ -15,6 +15,8 @@ final class UnableToToggleStatusResourceException extends DomainException
         return new UnableToToggleStatusResourceException(
             sprintf(
                 'Product with ID [%s] cannot be Activated because have not stock',
-                $id));
+                $id,
+            ),
+        );
     }
 }

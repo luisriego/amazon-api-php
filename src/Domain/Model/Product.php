@@ -240,6 +240,7 @@ class Product
     {
         if ($this->getStock() < 1) {
             $this->setStatus(ProductStatus::Inactive);
+
             throw UnableToToggleStatusResourceException::WithoutStock($this->getId());
         }
 
