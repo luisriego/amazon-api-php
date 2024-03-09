@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Application\UseCase\Product\UpdateProduct\Dto;
 
-use App\Domain\Validation\Traits\AssertMaxValueRatingTrait;
 use App\Domain\Validation\Traits\AssertNotNullTrait;
+use App\Domain\Validation\Traits\AssertRatingValueTrait;
 
 class UpdateProductInputDto
 {
     use AssertNotNullTrait;
-    use AssertMaxValueRatingTrait;
+    use AssertRatingValueTrait;
 
     private const ARGS = ['id'];
 
