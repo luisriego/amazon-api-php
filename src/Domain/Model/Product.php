@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Domain\Model;
 
 use App\Domain\Enums\ProductStatus;
+use App\Domain\Exception\Product\UnableToToggleStatusResourceException;
 use App\Domain\Repository\ProductRepositoryInterface;
 use App\Domain\Trait\IdentifierTrait;
 use App\Domain\Trait\TimestampableTrait;
@@ -237,6 +238,12 @@ class Product
 
     public function toggleStatus(): void
     {
+        if ($this->getStock() < 1) {
+            $this->setStatus(ProductStatus::Inactive);
+
+            throw UnableToToggleStatusResourceException::WithoutStock($this->getId());
+        }
+
         if ($this->status === ProductStatus::Active) {
             $this->setStatus(ProductStatus::Inactive);
         } else {

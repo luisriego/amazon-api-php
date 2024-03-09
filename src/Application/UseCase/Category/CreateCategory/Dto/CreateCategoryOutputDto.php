@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Application\UseCase\Category\CreateCategory\Dto;
 
-class CreateCategoryOutputDto
+readonly class CreateCategoryOutputDto
 {
-    public function __construct(public readonly string $id) {}
+    public function __construct(public string $id) {}
 }

@@ -12,7 +12,7 @@ use App\Domain\Model\Review;
 use Doctrine\ORM\Event\PrePersistEventArgs;
 use Symfony\Bundle\SecurityBundle\Security;
 
-readonly class AuthorEventListener
+readonly class EntityEventListener
 {
     public function __construct(private Security $security) {}
 
@@ -37,8 +37,10 @@ readonly class AuthorEventListener
         }
 
         if ($entity instanceof Product) {
-            if ($entity->getStock() === 0) {
+            if ($entity->getStock() < 1) {
                 $entity->setStatus(ProductStatus::Inactive);
+            } else {
+                $entity->setStatus(ProductStatus::Active);
             }
         }
     }
