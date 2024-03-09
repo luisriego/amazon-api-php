@@ -32,7 +32,6 @@ class UpdateProductController extends AbstractController
             $request->name,
             $request->description,
             $request->price,
-            $request->rating,
             $request->keys,
         );
 

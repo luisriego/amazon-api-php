@@ -10,7 +10,6 @@ use App\Domain\Validation\Traits\AssertRatingValueTrait;
 class UpdateProductInputDto
 {
     use AssertNotNullTrait;
-    use AssertRatingValueTrait;
 
     private const ARGS = ['id'];
 
@@ -19,11 +18,9 @@ class UpdateProductInputDto
         public readonly ?string $name,
         public readonly ?string $description,
         public readonly ?int $price,
-        public readonly ?int $rating,
         public readonly array $paramsToUpdate,
     ) {
         $this->assertNotNull(self::ARGS, [$this->id]);
-        $this->assertRatingValue($this->rating);
     }
 
     public static function create(
@@ -31,7 +28,6 @@ class UpdateProductInputDto
         ?string $name,
         ?string $description,
         ?int $price,
-        ?int $rating,
         array $paramsToUpdate,
     ): self {
         return new static(
@@ -39,7 +35,6 @@ class UpdateProductInputDto
             $name,
             $description,
             $price,
-            $rating,
             $paramsToUpdate);
     }
 }

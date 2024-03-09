@@ -17,7 +17,6 @@ readonly class UpdateProductOutputDto
             'name' => $product->getName(),
             'description' => $product->getDescription(),
             'price' => $product->getPrice(),
-            'rating' => $product->getRating(),
         ]);
     }
 }
