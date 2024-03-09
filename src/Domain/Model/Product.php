@@ -38,8 +38,11 @@ class Product
     #[ORM\Column(type: 'integer')]
     private int $price;
 
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private ?int $totalRatings = null;
+
     #[ORM\Column(type: 'smallint', nullable: true)]
-    private ?int $rating = null;
+    private ?int $votes = null;
 
     #[ORM\Column(type: 'string', length: 50, nullable: true)]
     private ?string $seller;
@@ -127,14 +130,24 @@ class Product
         $this->price = $price;
     }
 
-    public function getRating(): int
+    public function getTotalRatings(): ?int
     {
-        return $this->rating;
+        return $this->totalRatings;
     }
 
-    public function setRating(int $rating): void
+    public function setTotalRatings(?int $totalRatings): void
     {
-        $this->rating = $rating;
+        $this->totalRatings = $totalRatings;
+    }
+
+    public function getVotes(): ?int
+    {
+        return $this->votes;
+    }
+
+    public function setVotes(?int $votes): void
+    {
+        $this->votes = $votes;
     }
 
     public function getSeller(): string

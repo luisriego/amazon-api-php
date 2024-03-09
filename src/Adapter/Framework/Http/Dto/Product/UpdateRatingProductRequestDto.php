@@ -7,14 +7,14 @@ namespace App\Adapter\Framework\Http\Dto\Product;
 use App\Adapter\Framework\Http\Dto\RequestDto;
 use Symfony\Component\HttpFoundation\Request;
 
-readonly class UpdateStockProductRequestDto implements RequestDto
+readonly class UpdateRatingProductRequestDto implements RequestDto
 {
     public ?string $id;
-    public ?int $stock;
+    public ?int $rating;
 
     public function __construct(Request $request)
     {
         $this->id = $request->request->get('id');
-        $this->stock = (int) $request->request->get('stock');
+        $this->rating = (int) $request->request->get('rating');
     }
 }
