@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace App\Application\UseCase\Product\UpdateProduct\Dto;
 
+use App\Domain\Validation\Traits\AssertMaxValueRatingTrait;
 use App\Domain\Validation\Traits\AssertNotNullTrait;
 
 class UpdateProductInputDto
 {
     use AssertNotNullTrait;
+    use AssertMaxValueRatingTrait;
 
     private const ARGS = ['id'];
 
@@ -21,6 +23,7 @@ class UpdateProductInputDto
         public readonly array $paramsToUpdate,
     ) {
         $this->assertNotNull(self::ARGS, [$this->id]);
+        $this->assertRatingValue($this->rating);
     }
 
     public static function create(
